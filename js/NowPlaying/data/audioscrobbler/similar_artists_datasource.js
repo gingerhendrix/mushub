@@ -6,7 +6,8 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
     this.makeProp("similar_artists");
     
     this.update = function(){
-      var d = loadJSONDoc("/audioscrobbler/similar_artists.js", {artist : this.artist});
+      var url = NowPlaying.data.Webservice.url("audioscrobbler/similar_artists",{artist : this.artist});
+      var d = sendJSONPRequest(url, "jsonp");
       d.addCallback(bind(this.onUpdate, this));
       return d
     }

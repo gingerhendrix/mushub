@@ -7,7 +7,8 @@ Utils.namespace("NowPlaying.data.wikipedia", {
     
     this.update = function(){
      if(this.url && this.url.length > 0){
-        var d = loadJSONDoc("/wikipedia/content.js", {url : this.url});
+        var url = NowPlaying.data.Webservice.url("wikipedia/content", {url : this.url});
+        var d = sendJSONPRequest(url, "jsonp");
         d.addCallback(bind(this.onUpdate, this));
         return d
       }

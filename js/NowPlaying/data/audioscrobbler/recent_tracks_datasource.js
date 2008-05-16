@@ -6,7 +6,8 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
     this.makeProp("recent_tracks");
     
     this.update = function(){
-      var d = loadJSONDoc("/audioscrobbler/recent_tracks.js", {username : this.username});
+      var url = NowPlaying.data.Webservice.url("audioscrobbler/recent_tracks", { username : this.username })
+      var d = MochiKit.Async.sendJSONPRequest(url, "jsonp");
       d.addCallback(bind(this.onUpdate, this));
       return d
     }

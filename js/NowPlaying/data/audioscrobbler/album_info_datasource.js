@@ -10,7 +10,8 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
     
     this.update = function(){
       if(this.artist && this.artist.length > 0 && this.album && this.album.length > 0){
-        var d = loadJSONDoc("/audioscrobbler/album_info.js", {artist : this.artist, album : this.album});
+        var url = NowPlaying.data.Webservice.url("audioscrobbler/album_info", {artist : this.artist, album : this.album })
+        var d = MochiKit.Async.sendJSONPRequest(url, "jsonp");
         d.addCallback(bind(this.onUpdate, this));
         return d
       }

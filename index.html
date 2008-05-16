@@ -1,37 +1,39 @@
 <html>
   <head>
-    <script src="/static/MochiKit/MochiKit.js"></script>
-    <script src="/static/jsUtils.js"></script>
+    <script src="js/MochiKit/MochiKit.js"></script>
+    <script src="js/jsUtils.js"></script>
+    <script src="js/sendJSONPRequest.js"></script>
     
-    <% if Sinatra::Options.environment == :development %>
-      <script src="/static/NowPlaying/utils/databean.js"></script>
+    <script src="js/NowPlaying/utils/databean.js"></script>
 
-      <script src="/static/NowPlaying/data/audioscrobbler/recent_tracks_datasource.js"></script>
-      <script src="/static/NowPlaying/data/audioscrobbler/album_info_datasource.js"></script>
-      <script src="/static/NowPlaying/data/audioscrobbler/top_albums_datasource.js"></script>
-      <script src="/static/NowPlaying/data/audioscrobbler/similar_artists_datasource.js"></script>
-      
-      <script src="/static/NowPlaying/data/musicbrainz/artist_urls_datasource.js"></script>
-      <script src="/static/NowPlaying/data/wikipedia/wikipedia_datasource.js"></script>
+    <script src="js/NowPlaying/data/webservice.js"></script>
+    
+    <script src="js/NowPlaying/data/audioscrobbler/recent_tracks_datasource.js"></script>
+    <script src="js/NowPlaying/data/audioscrobbler/album_info_datasource.js"></script>
+    <script src="js/NowPlaying/data/audioscrobbler/top_albums_datasource.js"></script>
+    <script src="js/NowPlaying/data/audioscrobbler/similar_artists_datasource.js"></script>
+    
+    <script src="js/NowPlaying/data/musicbrainz/artist_urls_datasource.js"></script>
+    <script src="js/NowPlaying/data/wikipedia/wikipedia_datasource.js"></script>
 
-      <script src="/static/NowPlaying/data/now_playing_datasource.js"></script>
-      <script src="/static/NowPlaying/data/album_info_datasource.js"></script>
-      <script src="/static/NowPlaying/data/artist_info_datasource.js"></script>
+    <script src="js/NowPlaying/data/now_playing_datasource.js"></script>
+    <script src="js/NowPlaying/data/album_info_datasource.js"></script>
+    <script src="js/NowPlaying/data/artist_info_datasource.js"></script>
 
-      <script src="/static/NowPlaying/ui/bar_chart.js"></script>
+    <script src="js/NowPlaying/ui/bar_chart.js"></script>
 
-      <script src="/static/NowPlaying/utils/data_panel.js"></script>     
-      <script src="/static/NowPlaying/ui/now_playing_panel.js"></script>
-      <script src="/static/NowPlaying/ui/top_albums_panel.js"></script>
-      <script src="/static/NowPlaying/ui/similar_artists_panel.js"></script>
-      <script src="/static/NowPlaying/ui/album_info_panel.js"></script>
-      <script src="/static/NowPlaying/ui/artist_info_panel.js"></script>
-    <% else %>
-       <script src="/static/NowPlaying/NowPlaying.js"></script>
+    <script src="js/NowPlaying/utils/data_panel.js"></script>     
+    <script src="js/NowPlaying/ui/now_playing_panel.js"></script>
+    <script src="js/NowPlaying/ui/top_albums_panel.js"></script>
+    <script src="js/NowPlaying/ui/similar_artists_panel.js"></script>
+    <script src="js/NowPlaying/ui/album_info_panel.js"></script>
+    <script src="js/NowPlaying/ui/artist_info_panel.js"></script>
+    <!-- ** Include in build somehow (without erb!)
+       <script src="js/NowPlaying/NowPlaying.js"></script>
        <script src="http://gandrew.com/mint/?js"></script>
-    <% end %>
-    <script src="/static/MochiKit/MochiKit.js"></script>
-    <link rel="stylesheet" href="/static/nowplaying.css"/>
+    -->
+
+    <link rel="stylesheet" href="css/nowplaying.css"/>
     <script>
       var started = false;
       var updateTimer;
@@ -58,26 +60,13 @@
         }, 30000);
         
         var npData = new Data.NowPlayingDatasource(rtData);
-        
         var aiData = new AS.AlbumInfoDatasource();
-        
-        npData.connect("album", function(album){
-            aiData.artist = npData.artist();
-            aiData.album = npData.album();
-            aiData.update();
-        });
-        
         var taData = new AS.TopAlbumsDatasource();
-        npData.connect("artist", function(artist){
-          taData.artist = artist;
-          taData.update();
-        });
-        
         var saData = new AS.SimilarArtistsDatasource();
-        npData.connect("artist", function(artist){
-          saData.artist = artist;
-          saData.update();
-        });
+        
+        npData.connect("album", function(album){ aiData.artist = npData.artist();  aiData.album = npData.album();  aiData.update();  });
+        npData.connect("artist", function(artist){ taData.artist = artist; taData.update(); });
+        npData.connect("artist", function(artist){ saData.artist = artist; saData.update(); });
         
         rtData.update();
         

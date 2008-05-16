@@ -7,7 +7,8 @@ Utils.namespace("NowPlaying.data.musicbrainz", {
     
     this.update = function(){
       if(this.artist_mbid && this.artist_mbid.length > 0){
-        var d = loadJSONDoc("/musicbrainz/artist_urls.js", {artist_mbid : this.artist_mbid});
+        var url = NowPlaying.data.Webservice.url("musicbrainz/artist_urls",{artist_mbid : this.artist_mbid});
+        var d = sendJSONPRequest(url, "jsonp");
         d.addCallback(bind(this.onUpdate, this));
         return d
       }
