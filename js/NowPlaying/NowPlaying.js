@@ -1,7 +1,6 @@
 
 
-
-   Utils.namespace("NowPlaying.utils", {
+  Utils.namespace("NowPlaying.utils", {
  DataBean : function(){
     this.properties = {};
 
@@ -23,8 +22,7 @@
   }
 });
 
-
-   Utils.namespace("NowPlaying.ui", {
+  Utils.namespace("NowPlaying.ui", {
   DataPanel : function(){
     this.link = function(datasource, topic, elementClass, fn){
        datasource.connect(topic, this, function(val){
@@ -46,7 +44,6 @@
 });
 
 
-
 Utils.namespace("NowPlaying.data.audioscrobbler", {
   AlbumInfoDatasource : function(artist, album){
     this.artist = artist;
@@ -58,7 +55,8 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
 
     this.update = function(){
       if(this.artist && this.artist.length > 0 && this.album && this.album.length > 0){
-        var d = loadJSONDoc("/audioscrobbler/album_info.js", {artist : this.artist, album : this.album});
+        var url = NowPlaying.data.Webservice.url("audioscrobbler/album_info", {artist : this.artist, album : this.album })
+        var d = MochiKit.Async.sendJSONPRequest(url, "jsonp");
         d.addCallback(bind(this.onUpdate, this));
         return d
       }
@@ -74,15 +72,15 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
 
 NowPlaying.data.audioscrobbler.AlbumInfoDatasource.prototype = new NowPlaying.utils.DataBean();
 
-
-   Utils.namespace("NowPlaying.data.audioscrobbler", {
+  Utils.namespace("NowPlaying.data.audioscrobbler", {
   TopAlbumsDatasource : function(artist){
     this.artist = artist;
 
     this.makeProp("top_albums");
 
     this.update = function(){
-      var d = loadJSONDoc("/audioscrobbler/top_albums.js", {artist : this.artist});
+      var url = NowPlaying.data.Webservice.url("audioscrobbler/top_albums", {artist : this.artist})
+      var d = sendJSONPRequest(url, "jsonp");
       d.addCallback(bind(this.onUpdate, this));
       return d
     }
@@ -97,7 +95,6 @@ NowPlaying.data.audioscrobbler.AlbumInfoDatasource.prototype = new NowPlaying.ut
 NowPlaying.data.TopAlbumsDatasource.prototype = new NowPlaying.utils.DataBean();
 
 
-
 Utils.namespace("NowPlaying.data.audioscrobbler", {
   RecentTracksDatasource : function (username){
     this.username = username;
@@ -105,7 +102,8 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
     this.makeProp("recent_tracks");
 
     this.update = function(){
-      var d = loadJSONDoc("/audioscrobbler/recent_tracks.js", {username : this.username});
+      var url = NowPlaying.data.Webservice.url("audioscrobbler/recent_tracks", { username : this.username })
+      var d = MochiKit.Async.sendJSONPRequest(url, "jsonp");
       d.addCallback(bind(this.onUpdate, this));
       return d
     }
@@ -119,7 +117,6 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
 NowPlaying.data.RecentTracksDatasource.prototype = new NowPlaying.utils.DataBean();
 
 
-
 Utils.namespace("NowPlaying.data.audioscrobbler", {
   SimilarArtistsDatasource : function(artist){
     this.artist = artist;
@@ -127,7 +124,8 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
     this.makeProp("similar_artists");
 
     this.update = function(){
-      var d = loadJSONDoc("/audioscrobbler/similar_artists.js", {artist : this.artist});
+      var url = NowPlaying.data.Webservice.url("audioscrobbler/similar_artists",{artist : this.artist});
+      var d = sendJSONPRequest(url, "jsonp");
       d.addCallback(bind(this.onUpdate, this));
       return d
     }
@@ -142,7 +140,6 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
 NowPlaying.data.SimilarArtistsDatasource.prototype = new NowPlaying.utils.DataBean();
 
 
-
 Utils.namespace("NowPlaying.data.musicbrainz", {
   ArtistUrlsDatasource : function(artist_mbid){
     this.artist_mbid = artist_mbid;
@@ -151,7 +148,8 @@ Utils.namespace("NowPlaying.data.musicbrainz", {
 
     this.update = function(){
       if(this.artist_mbid && this.artist_mbid.length > 0){
-        var d = loadJSONDoc("/musicbrainz/artist_urls.js", {artist_mbid : this.artist_mbid});
+        var url = NowPlaying.data.Webservice.url("musicbrainz/artist_urls",{artist_mbid : this.artist_mbid});
+        var d = sendJSONPRequest(url, "jsonp");
         d.addCallback(bind(this.onUpdate, this));
         return d
       }
@@ -167,7 +165,6 @@ Utils.namespace("NowPlaying.data.musicbrainz", {
 NowPlaying.data.musicbrainz.ArtistUrlsDatasource.prototype = new NowPlaying.utils.DataBean();
 
 
-
 Utils.namespace("NowPlaying.data.wikipedia", {
   WikipediaDatasource : function(url){
     this.url = url;
@@ -176,7 +173,8 @@ Utils.namespace("NowPlaying.data.wikipedia", {
 
     this.update = function(){
      if(this.url && this.url.length > 0){
-        var d = loadJSONDoc("/wikipedia/content.js", {url : this.url});
+        var url = NowPlaying.data.Webservice.url("wikipedia/content", {url : this.url});
+        var d = sendJSONPRequest(url, "jsonp");
         d.addCallback(bind(this.onUpdate, this));
         return d
       }
@@ -190,7 +188,6 @@ Utils.namespace("NowPlaying.data.wikipedia", {
 });
 
 NowPlaying.data.wikipedia.WikipediaDatasource.prototype = new NowPlaying.utils.DataBean();
-
 
 
 Utils.namespace("NowPlaying.data", {
@@ -212,7 +209,6 @@ Utils.namespace("NowPlaying.data", {
 });
 
 NowPlaying.data.AlbumInfoDatasource.prototype = new NowPlaying.utils.DataBean();
-
 
 
 Utils.namespace("NowPlaying.data", {
@@ -253,7 +249,6 @@ Utils.namespace("NowPlaying.data", {
 NowPlaying.data.ArtistInfoDatasource.prototype = new NowPlaying.utils.DataBean();
 
 
-
 Utils.namespace("NowPlaying.data", {
   NowPlayingDatasource : function (recentTracksDatasource){
     this.makeProp("album");
@@ -277,7 +272,18 @@ Utils.namespace("NowPlaying.data", {
 NowPlaying.data.NowPlayingDatasource.prototype = new NowPlaying.utils.DataBean();
 
 
-   Utils.namespace("NowPlaying.ui", {
+Utils.namespace("NowPlaying.data", {
+  Webservice : {
+    SERVER : "http://localhost:4567",
+    url : function(service, options){
+      var queryString = MochiKit.Base.queryString(options);
+      return this.SERVER + "/" + service + ".js?" + queryString;
+    }
+
+  }
+});
+
+  Utils.namespace("NowPlaying.ui", {
   TopAlbumsPanel : function(element, datasource){
 
     this.onChange = function(top_albums){
@@ -300,7 +306,6 @@ NowPlaying.data.NowPlayingDatasource.prototype = new NowPlaying.utils.DataBean()
 
 
 
-
 function create_bar(float_value){
    var bar = document.createElement("span");
    bar.setAttribute("class", "bar");
@@ -316,8 +321,7 @@ function create_bar(float_value){
     return bar;
 }
 
-
-   Utils.namespace("NowPlaying.ui", {
+  Utils.namespace("NowPlaying.ui", {
   NowPlayingPanel : function(element, datasource){
     this.element = element;
 
@@ -330,8 +334,7 @@ function create_bar(float_value){
 
 NowPlaying.ui.NowPlayingPanel.prototype = new NowPlaying.ui.DataPanel();
 
-
-   Utils.namespace("NowPlaying.ui", {
+  Utils.namespace("NowPlaying.ui", {
   SimilarArtistsPanel : function(element, datasource){
 
     this.onChange = function(similar_artists){
@@ -353,8 +356,7 @@ NowPlaying.ui.NowPlayingPanel.prototype = new NowPlaying.ui.DataPanel();
   }
 });
 
-
-   Utils.namespace("NowPlaying.ui", {
+  Utils.namespace("NowPlaying.ui", {
   AlbumInfoPanel : function(element, datasource){
     this.element = element;
 
@@ -379,8 +381,7 @@ NowPlaying.ui.NowPlayingPanel.prototype = new NowPlaying.ui.DataPanel();
 
 NowPlaying.ui.AlbumInfoPanel.prototype = new NowPlaying.ui.DataPanel();
 
-
-   Utils.namespace("NowPlaying.ui", {
+  Utils.namespace("NowPlaying.ui", {
   ArtistInfoPanel : function(element, datasource){
     this.element = element;
 

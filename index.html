@@ -4,34 +4,54 @@
     <script src="js/jsUtils.js"></script>
     <script src="js/sendJSONPRequest.js"></script>
     
-    <script src="js/NowPlaying/utils/databean.js"></script>
+    <script>
+      (function(){
+        var base = "js/NowPlaying/";
+      
+        if(isLocalhost()){
+          loadLibrary("utils", ["databean"]);
+          loadLibrary("data", ["webservice"]);
+          loadLibrary("data/audioscrobbler", ["recent_tracks_datasource",
+                                               "album_info_datasource",
+                                               "top_albums_datasource",
+                                               "similar_artists_datasource"]);
+          loadLibrary("data/musicbrainz", ["artist_urls_datasource"]);
+          loadLibrary("data/wikipedia", ["wikipedia_datasource"]);
 
-    <script src="js/NowPlaying/data/webservice.js"></script>
+          loadLibrary("data", ["now_playing_datasource"]);
+          loadLibrary("data", ["album_info_datasource"]);
+          loadLibrary("data", ["artist_info_datasource"]);
+
+          loadLibrary("ui", ["bar_chart"]);
+
+          loadLibrary("utils",["data_panel"]);     
+          loadLibrary("ui", ["now_playing_panel"]);
+          loadLibrary("ui", ["top_albums_panel"]);
+          loadLibrary("ui", ["similar_artists_panel"]);
+          loadLibrary("ui", ["album_info_panel"]);
+          loadLibrary("ui", ["artist_info_panel"]);
+        }else{
+          loadScript(base + "NowPlaying.js");   
+          loadScript("http://gandrew.com/mint/?js");       
+        }        
+        
+        function isLocalhost(){
+          return window.location.host.indexOf(".") == -1
+        }
+        
+        function loadLibrary(name, libs){
+          libs.forEach(function(lib){
+            loadScript(base + name + "/" + lib + ".js");
+          });
+        }
+        
+          
+        function loadScript(url){
+          document.write("<script src='"+url+"'><"+"/script>");
+        }
     
-    <script src="js/NowPlaying/data/audioscrobbler/recent_tracks_datasource.js"></script>
-    <script src="js/NowPlaying/data/audioscrobbler/album_info_datasource.js"></script>
-    <script src="js/NowPlaying/data/audioscrobbler/top_albums_datasource.js"></script>
-    <script src="js/NowPlaying/data/audioscrobbler/similar_artists_datasource.js"></script>
-    
-    <script src="js/NowPlaying/data/musicbrainz/artist_urls_datasource.js"></script>
-    <script src="js/NowPlaying/data/wikipedia/wikipedia_datasource.js"></script>
-
-    <script src="js/NowPlaying/data/now_playing_datasource.js"></script>
-    <script src="js/NowPlaying/data/album_info_datasource.js"></script>
-    <script src="js/NowPlaying/data/artist_info_datasource.js"></script>
-
-    <script src="js/NowPlaying/ui/bar_chart.js"></script>
-
-    <script src="js/NowPlaying/utils/data_panel.js"></script>     
-    <script src="js/NowPlaying/ui/now_playing_panel.js"></script>
-    <script src="js/NowPlaying/ui/top_albums_panel.js"></script>
-    <script src="js/NowPlaying/ui/similar_artists_panel.js"></script>
-    <script src="js/NowPlaying/ui/album_info_panel.js"></script>
-    <script src="js/NowPlaying/ui/artist_info_panel.js"></script>
-    <!-- ** Include in build somehow (without erb!)
-       <script src="js/NowPlaying/NowPlaying.js"></script>
-       <script src="http://gandrew.com/mint/?js"></script>
-    -->
+      })();
+    </script>
 
     <link rel="stylesheet" href="css/nowplaying.css"/>
     <script>
