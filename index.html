@@ -30,8 +30,11 @@
           loadLibrary("ui", ["similar_artists_panel"]);
           loadLibrary("ui", ["album_info_panel"]);
           loadLibrary("ui", ["artist_info_panel"]);
+          
+          loadScript("js/config/config.development.js");
         }else{
           loadScript(base + "NowPlaying.js");   
+          loadScript("js/config/config.production.js");
           loadScript("http://gandrew.com/mint/?js");       
         }        
         
