@@ -1,38 +1,28 @@
+
 #now_playing{
-  padding-left: 2em;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  background-color: #aaaaaa;
-}
-
-#now_playing h1 {
-  float: left;
-}
-
-.now_playing_body {
-  float: left;
-  padding-left: 2em;
+  padding: 0 1em 0 1em;
 }
 
 .now_playing_body .track{
   font-family: verdana, helvetica, sans-serif;
-  font-size: 22pt;
+  font-size: 16pt;
 }
 
 .now_playing_body .artist, .now_playing_body .by{
  font-family: verdana, helvetica, sans-serif;
- font-size: 18pt;
+ font-size: 14pt;
 }
 
 .now_playing_body .album_title{
  font-family: verdana, helvetica, sans-serif;
- font-size: 14pt;
+ font-size: 12pt;
 }
 
 .now_playing_body .album{
   font-family: verdana, helvetica, sans-serif;
-  font-size: 16pt;
+  font-size: 14pt;
 }
+
 
 .label{
   clear: left;
@@ -50,6 +40,10 @@
   min-width: 10px;
 }
 
+.contentpanel{
+  margin: 0.5em !important;
+}
+
 #username_input{
   padding-left: 20px;
   background-color: #cccccc;
@@ -62,78 +56,53 @@
   font-family: verdana, helvetica, sans;
 }
       
-#album_image {
-  float: left;
-  padding-right: 0;
+#artist_wikipedia {
+  padding: 0.5em 1em 0.5em 1em;
+  font-size: 11pt;
 }
 
-#album_info_header {
-  float: left;      
-  margin-top: 2em;
-  margin-right: 2em;
-  font-size: 15px;
+#artist_wikipedia p{
+  margin-bottom: 0.5em;
 }
 
 #album_track_listing{
-  clear: both;
   font-size: 12px;
-  width: 400px;
 }
 
-#similar_artists {
-  font-size: 12px;
-  float: left;
-  width: 35%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-#top_albums{
-  font-size: 12px;
-  float: left;
-  width: 35%;
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
-.container {
-  margin: 1em;
-  padding: 1em;
-  border: 2px solid black;   
+#top_albums, #similar_artists{
+ font-size: 12px;
+ padding: 0.5em 1em 0.5em 1em;
 }
 
 
 #artist_info{
-  width: 40%;
-  float: left;  
 }
 
 #album_info{
-  width: 40%;
-  float: left;  
+  padding: 0.5em 1em 0.5em 1em;
+}
+
+#album_info h2{
+  margin-bottom: 1em;
 }
 
 #album_info .left_column{
- float: left;
- vertical-align: center;
- text-align:center;
- width: 150px; 
+  float: left;
 }
 
 #album_info .track_listing{
-  margin-left: 20px;
   float: left;
-  vertical-align: center;
+  margin-left: 2em;
+  width: 300px;
+}
+#album_info .track_listing ol{
+  list-style-type: decimal;
 }
 
 #album_info .reach_container{
   width: 130px;
-  text-align: center;
-  border: 1px solid black;
   padding-bottom: 0.5em;
   margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
 } 
 
 #album_info .reach_container .reach{
