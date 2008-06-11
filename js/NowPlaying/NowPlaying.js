@@ -274,7 +274,7 @@ NowPlaying.data.NowPlayingDatasource.prototype = new NowPlaying.utils.DataBean()
 
 Utils.namespace("NowPlaying.data", {
   Webservice : {
-    SERVER : "http://localhost:4567",
+    SERVER : "http://example.org",
     url : function(service, options){
       var queryString = MochiKit.Base.queryString(options);
       return this.SERVER + "/" + service + ".js?" + queryString;
