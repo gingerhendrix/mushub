@@ -1,6 +1,13 @@
 <html>
   <head>
+  <!--  <link rel="stylesheet" href="css/nowplaying.css"/> -->
+    <link rel="stylesheet" href="css/ext-all.css"/>
+  
     <script src="js/MochiKit/MochiKit.js"></script>
+
+    <script src="js/Ext/ext-base.js"></script>
+    <script src="js/Ext/ext-all.js"></script>
+
     <script src="js/jsUtils.js"></script>
     <script src="js/sendJSONPRequest.js"></script>
     
@@ -56,7 +63,7 @@
       })();
     </script>
 
-    <link rel="stylesheet" href="css/nowplaying.css"/>
+  
     <script>
       var started = false;
       var updateTimer;
@@ -123,6 +130,82 @@
       }, false);
       
     </script> 
+    
+    <script>
+    Ext.onReady(function(){
+    
+       var username_panel = new Ext.Panel({
+          contentEl:'username_input',
+          region:'north',
+        	width: 800,
+       });
+
+        var nowPlayingPanel = new Ext.Panel({
+        	title: 'Now Playing',
+        	contentEl:'now_playing',
+          region:'north',
+        	width: 800,
+          margins: '20 20 0 20',
+        });
+        
+        var topAlbumsPanel = new Ext.Panel({
+        	title: 'Top Albums',
+        	contentEl:'top_albums',
+        	columnWidth: .40,
+        });
+        
+        var similarArtistsPanel = new Ext.Panel({
+          title: 'Similar Artists',
+        	contentEl:'similar_artists',
+        	columnWidth: .40,
+        });
+        
+        var wikipediaPanel = new Ext.Panel({
+          title: 'Wikipedia',
+        	contentEl:'artist_wikipedia',
+          width: 800
+        });
+        
+        var artistInfoPanel = new Ext.Panel({
+        	title: 'Artist Info',
+          columnWidth: 0.5,
+        	items : [wikipediaPanel, 
+        	        new Ext.Panel({ layout:'column', 
+        	                        width: 800,
+        	                        items : [new Ext.Panel({columnWidth : .05}), 
+        	                                 topAlbumsPanel, 
+        	                                 new Ext.Panel({columnWidth : .1}), 
+        	                                 similarArtistsPanel,
+        	                                 new Ext.Panel({columnWidth : .05}) ]
+        	                      })],
+        });
+        
+        var albumInfoPanel = new Ext.Panel({
+          title: 'Album Info',
+          columnWidth: 0.5,        
+          contentEl:'album_info',
+        });
+        
+       var mainPanel = new Ext.Panel({
+          layout:'border',
+          region : 'center',
+          items:[nowPlayingPanel, 
+                new Ext.Panel({
+                  region : 'center',
+                  layout : 'column',
+                  margins: '20 20 0 20',
+                  items : [artistInfoPanel, albumInfoPanel] 
+                })]
+       });
+
+  
+        // Configure viewport
+        viewport = new Ext.Viewport({
+               layout:'border',
+               items:[username_panel, mainPanel]});
+});
+    
+    </script>
   </head>
     <style>
       body{
@@ -138,7 +221,7 @@
         padding-top: 10%;
         height: 100%;
         background-color: #3333aa;      
-      }
+      }http://projects.linode.gandrew.com/nowplaying/#gingerhendrix
       
       #start label{
         font-family: helvetica;
@@ -181,6 +264,7 @@
       <input type="button" onclick="updateUsername($('username').value);" value="Go"></input>
    </div>
 
+
     <div id="now_playing">
       <h1>Now Playing</h1>
       <div class="now_playing_body">
@@ -192,30 +276,26 @@
           <span class="album"></span>
         </div>
        </div>
-     <br style="clear: both"/>
      </div>
 
-     <div id="artist_info" class="container">   
-        <h2><span class="artist">Sonic Youth</span></h2>
-
+     <div id="artist_wikipedia">
         <div class="wikipedia_content">
         </div>
         <a href="#" class="wikipedia_url">Wikipedia</a>
-        <div id="top_albums" class="container">
-          <h2>Top Albums</h2>
-          <ol id="top_albums_list">
-          </ol>
-        </div>
-
-        <div id="similar_artists" class="container">
-          <h2>Similar Artists</h2>
+      </div>
+     <div id="similar_artists" class="container">
           <ol id="similar_artists_list">
           </ol>
-        </div>
-        <br style="clear: both"/>
+    </div>
+
     </div>
     
-    <div id="album_info" class="container">
+   <div id="top_albums">
+      <ol id="top_albums_list">
+      </ol>
+   </div>
+
+    <div id="album_info" >
        <h2><span class="album"></span></h2>
         <div class="left_column">
            <img class="album_image" width="130" height="130"></img>
@@ -233,7 +313,7 @@
        </div>
     </div>
   </div> 
- 
+
   </body>
   
 </html>
