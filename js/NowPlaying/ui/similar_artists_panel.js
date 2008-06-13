@@ -1,14 +1,13 @@
 Utils.namespace("NowPlaying.ui", { 
   SimilarArtistsPanel : function(element, datasource){
-    config = {
+    Utils.extend(this, new NowPlaying.ui.ContentPanel({
           title: 'Similar Artists',
         	contentEl:'similar_artists',
         	columnWidth: .40,
-          cls : 'contentpanel',
-        }
-        
-    this.panel = new Ext.Panel(config);
-    
+          })
+    );
+
+
     this.onChange = function(similar_artists){
       element.innerHTML = "";
 
@@ -25,5 +24,6 @@ Utils.namespace("NowPlaying.ui", {
     }
 
     datasource.connect("similar_artists", this, "onChange");
+    this.linkStatus(datasource);
   }
 });

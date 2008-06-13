@@ -1,17 +1,11 @@
 Utils.namespace("NowPlaying.ui", {
   AlbumInfoPanel : function(element, datasource){
     this.element = element;
-    
-    this.panel = new Ext.Panel({
-          title: 'Album Info',
-          columnWidth: 0.4,        
-          contentEl:'album_info',
-          cls : 'contentpanel',
-          bbar: new Ext.StatusBar({
-                        text: 'Ok',
-                        iconCls: 'ready-icon',
-                    })
-        });
+    Utils.extend(this, new NowPlaying.ui.ContentPanel({
+      title: 'Album Info',
+      columnWidth: 0.4,        
+      contentEl:'album_info',
+    }));
     
     this.link(datasource, "album", "album", function(el, album){
       if(!album || album == ""){
@@ -23,7 +17,8 @@ Utils.namespace("NowPlaying.ui", {
     });
 
     this.linkHtml(datasource, "reach", "reach");
-    this.linkStatus(datasource, "status");
+
+    this.linkStatus(datasource);
     
     this.linkImage(datasource, "image", "album_image");    
     

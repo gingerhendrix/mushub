@@ -1,15 +1,10 @@
 Utils.namespace("NowPlaying.ui", {
   ArtistInfoPanel : function(element, datasource){
     this.element = element;
-    this.panel = new Ext.Panel({
+    Utils.extend(this, new NowPlaying.ui.ContentPanel({
           title: 'Wikipedia',
         	contentEl:'artist_wikipedia',
-      	  cls : 'contentpanel',
-   	      bbar: new Ext.StatusBar({
-                     text: 'Ok',
-                     iconCls: 'ready-icon',
-                })
-        });
+    }));
 
     this.linkStatus(datasource, "status");
     
@@ -22,4 +17,3 @@ Utils.namespace("NowPlaying.ui", {
   }
 });
 
-NowPlaying.ui.ArtistInfoPanel.prototype = new NowPlaying.ui.DataPanel();

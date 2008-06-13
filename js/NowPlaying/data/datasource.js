@@ -16,6 +16,7 @@ Utils.namespace("NowPlaying.data", {
     }
     
     this.update = function(){
+      MochiKit.Signal.signal(this, "beginUpdate");
       try{
         params = makeParams(this, config.params);
       }catch(e){
@@ -23,7 +24,11 @@ Utils.namespace("NowPlaying.data", {
       }
       var url = NowPlaying.data.Webservice.url(config.service, params);
       var d = sendJSONPRequest(url, "jsonp");
-      d.addCallback(bind(this.onUpdate, this));
+      var self = this;
+      d.addCallback(function(response){
+          self.onUpdate(response);
+          MochiKit.Signal.signal(self, "endUpdate");
+      });
       return d;
     }
   

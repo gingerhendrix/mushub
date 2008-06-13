@@ -13,7 +13,11 @@ Utils.namespace("NowPlaying.data", {
     aiDatasource.connect("album_reach", this, this.reach);
     aiDatasource.connect("album_image", this, this.image);
     aiDatasource.connect("album_track_listing", this, this.track_listing);
-
+    
+    npDatasource.connect("beginUpdate", this, function(){ MochiKit.Signal.signal(this, "beginUpdate"); });
+    npDatasource.connect("endUpdate", this, function(){ MochiKit.Signal.signal(this, "endUpdate"); });
+    aiDatasource.connect("beginUpdate", this, function(){ MochiKit.Signal.signal(this, "beginUpdate"); });
+    aiDatasource.connect("endUpdate", this, function(){ MochiKit.Signal.signal(this, "endUpdate"); });
   }
 });
 

@@ -1,14 +1,11 @@
 Utils.namespace("NowPlaying.ui", { 
   TopAlbumsPanel : function(element, datasource, config){
-    config = {
+     Utils.extend(this, new NowPlaying.ui.ContentPanel({
         	title: 'Top Albums',
         	contentEl:'top_albums',
         	columnWidth: .40,
-          cls : 'contentpanel',
-        }
+      }));
         
-    this.panel = new Ext.Panel(config);
-    
     this.onChange = function(top_albums){
       element.innerHTML = "";
       var max_reach = top_albums[0].reach;
@@ -21,7 +18,7 @@ Utils.namespace("NowPlaying.ui", {
         element.appendChild(album_li);
       });
     }
-    
+    this.linkStatus(datasource);
     datasource.connect("top_albums", this, "onChange");
   }
 });
