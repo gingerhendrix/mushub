@@ -1,5 +1,13 @@
 Utils.namespace("NowPlaying.ui", { 
-  TopAlbumsPanel : function(element, datasource){
+  TopAlbumsPanel : function(element, datasource, config){
+    config = {
+        	title: 'Top Albums',
+        	contentEl:'top_albums',
+        	columnWidth: .40,
+          cls : 'contentpanel',
+        }
+        
+    this.panel = new Ext.Panel(config);
     
     this.onChange = function(top_albums){
       element.innerHTML = "";

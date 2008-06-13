@@ -4,18 +4,14 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
     this.artist = artist;
     this.album = album;
     
+    Utils.extend(this, new NowPlaying.data.Datasource(
+                                       { service : "audioscrobbler/album_info",
+                                         params : ["artist", "album" ]
+                                       }));    
+    
     this.makeProp("album_reach");
     this.makeProp("album_image");
     this.makeProp("album_track_listing");
-    
-    this.update = function(){
-      if(this.artist && this.artist.length > 0 && this.album && this.album.length > 0){
-        var url = NowPlaying.data.Webservice.url("audioscrobbler/album_info", {artist : this.artist, album : this.album })
-        var d = MochiKit.Async.sendJSONPRequest(url, "jsonp");
-        d.addCallback(bind(this.onUpdate, this));
-        return d
-      }
-    }
 
     this.onUpdate = function(album){
       this.album_reach(album.reach);
@@ -25,4 +21,3 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
  }
 });
 
-NowPlaying.data.audioscrobbler.AlbumInfoDatasource.prototype = new NowPlaying.utils.DataBean();

@@ -1,6 +1,14 @@
 Utils.namespace("NowPlaying.ui", { 
   SimilarArtistsPanel : function(element, datasource){
-
+    config = {
+          title: 'Similar Artists',
+        	contentEl:'similar_artists',
+        	columnWidth: .40,
+          cls : 'contentpanel',
+        }
+        
+    this.panel = new Ext.Panel(config);
+    
     this.onChange = function(similar_artists){
       element.innerHTML = "";
 

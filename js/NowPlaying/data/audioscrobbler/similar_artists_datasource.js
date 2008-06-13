@@ -1,16 +1,14 @@
 
 Utils.namespace("NowPlaying.data.audioscrobbler", { 
   SimilarArtistsDatasource : function(artist){
+    Utils.extend(this, new NowPlaying.data.Datasource(
+                                       { service : "audioscrobbler/similar_artists",
+                                         params : ["artist"]
+                                       }));   
+
     this.artist = artist;
-    
     this.makeProp("similar_artists");
     
-    this.update = function(){
-      var url = NowPlaying.data.Webservice.url("audioscrobbler/similar_artists",{artist : this.artist});
-      var d = sendJSONPRequest(url, "jsonp");
-      d.addCallback(bind(this.onUpdate, this));
-      return d
-    }
 
     this.onUpdate = function(response){
       this.similar_artists(response);

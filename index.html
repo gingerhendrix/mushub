@@ -18,6 +18,8 @@
         if(isLocalhost()){
           loadLibrary("utils", ["databean"]);
           loadLibrary("data", ["webservice"]);
+          loadLibrary("data", ["datasource"]);
+          
           loadLibrary("data/audioscrobbler", ["recent_tracks_datasource",
                                                "album_info_datasource",
                                                "top_albums_datasource",
@@ -67,6 +69,12 @@
     <script>
       var started = false;
       var updateTimer;
+      var npUI;
+      var taUI;
+      var saUI;
+      var albumUI;
+      var artistUI;
+      
       
       function updateUsername(username){
         if(!started){
@@ -98,17 +106,19 @@
         npData.connect("artist", function(artist){ taData.artist = artist; taData.update(); });
         npData.connect("artist", function(artist){ saData.artist = artist; saData.update(); });
         
-        rtData.update();
+
         
-        var npUI = new UI.NowPlayingPanel($("now_playing"), npData);        
-        var taUI = new UI.TopAlbumsPanel($("top_albums_list"), taData);
-        var saUI = new UI.SimilarArtistsPanel($("similar_artists_list"), saData);
-        var albumUI = new UI.AlbumInfoPanel($("album_info"), new Data.AlbumInfoDatasource(npData, aiData));
-        var artistUI = new UI.ArtistInfoPanel($("artist_info"), 
+        npUI = new UI.NowPlayingPanel($("now_playing"), npData);        
+        taUI = new UI.TopAlbumsPanel($("top_albums_list"), taData);
+        saUI = new UI.SimilarArtistsPanel($("similar_artists_list"), saData);
+        albumUI = new UI.AlbumInfoPanel($("album_info"), new Data.AlbumInfoDatasource(npData, aiData));
+        artistUI = new UI.ArtistInfoPanel($("artist_info"), 
                                               new Data.ArtistInfoDatasource(npData,  
                                                                             new MB.ArtistUrlsDatasource(),
                                                                             new WP.WikipediaDatasource())
                                              );
+        makePanels();                                             
+        rtData.update();
       }
       
       function showStart(){
@@ -132,44 +142,20 @@
     </script> 
     
     <script>
-    Ext.onReady(function(){
+      function makePanels(){
     
        var username_panel = new Ext.Panel({
           contentEl:'username_input',
           region:'north',
         	width: 800,
        });
+       var nowPlayingPanel = npUI.panel;
+       var topAlbumsPanel = taUI.panel;
+       var similarArtistsPanel = saUI.panel;
+       var wikipediaPanel = artistUI.panel;
+       var albumInfoPanel = albumUI.panel;
 
-        var nowPlayingPanel = new Ext.Panel({
-        	title: 'Now Playing',
-        	contentEl:'now_playing',
-          region:'north',
-        	width: 800,
-        	height: 80,
-          margins: '20 20 0 20',
-        });
-        
-        var topAlbumsPanel = new Ext.Panel({
-        	title: 'Top Albums',
-        	contentEl:'top_albums',
-        	columnWidth: .40,
-          cls : 'contentpanel',
-        });
-        
-        var similarArtistsPanel = new Ext.Panel({
-          title: 'Similar Artists',
-        	contentEl:'similar_artists',
-        	columnWidth: .40,
-          cls : 'contentpanel',
-        });
-        
-        var wikipediaPanel = new Ext.Panel({
-          title: 'Wikipedia',
-        	contentEl:'artist_wikipedia',
-      	   cls : 'contentpanel',
-        });
-        
-        var artistInfoPanel = new Ext.Panel({
+       var artistInfoPanel = new Ext.Panel({
         	title: 'Artist Info',
           cls : 'contentpanel',
           columnWidth: 0.4,
@@ -184,13 +170,6 @@
         	                                 similarArtistsPanel,
         	                                 new Ext.Panel({columnWidth : .05, border : false}) ]
         	                      })],
-        });
-        
-        var albumInfoPanel = new Ext.Panel({
-          title: 'Album Info',
-          columnWidth: 0.4,        
-          contentEl:'album_info',
-          cls : 'contentpanel',
         });
         
        var mainPanel = new Ext.Panel({
@@ -208,13 +187,12 @@
                            albumInfoPanel,] 
                 })]
        });
-
   
         // Configure viewport
-        viewport = new Ext.Viewport({
+       var viewport = new Ext.Viewport({
                layout:'border',
                items:[username_panel, mainPanel]});
-});
+}
     
     </script>
   </head>
@@ -255,7 +233,9 @@
       #start input.button{
         margin-left: 0.5em;
       }
-      
+      #album_info.error .track_listing, #album_info.error .album_image,  #album_info.error .reach_container{
+        display : none;
+      }
       
     </style>
   <body>
@@ -285,6 +265,7 @@
           <span class="album_title">From the album</span>
           <span class="album"></span>
         </div>
+        <span class="status"></span>
        </div>
      </div>
 
@@ -321,6 +302,7 @@
             <li></li>
            </ol>
        </div>
+       <span class="status"></span>
     </div>
   </div> 
 
