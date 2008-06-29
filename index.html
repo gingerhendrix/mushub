@@ -157,9 +157,9 @@
        var albumInfoPanel = albumUI.panel;
 
        var artistInfoPanel = new Ext.Panel({
-        	title: 'Artist Info',
-          cls : 'contentpanel',
-          columnWidth: 0.4,
+          border: false,
+          baseCls: '',
+          width: 640,
         	items : [wikipediaPanel, 
         	        new Ext.Panel({ layout:'column', 
         	                        width: 800,
