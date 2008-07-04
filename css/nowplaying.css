@@ -74,6 +74,49 @@
  padding: 0.5em 1em 0.5em 1em;
 }
 
+#similar_artists li{
+  float: left;
+  list-style: none;
+}
+
+#top_albums li{
+  float: left;
+  list-style: none;
+  width: 130px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  height: 200px;
+
+}
+
+#similar_artists ol{
+  width: 560px;
+}
+#similar_artists li.large{
+  width: 130px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  height: 130px;
+}
+
+#similar_artists li.medium{
+  width: 65px;
+  margin-right: 5px;
+  height: 70px;
+}
+
+#similar_artists li.small{
+  width: 33px;
+  margin-right: 2px;
+  height: 35px;
+}
+
+
+#top_albums li span, #similar_artists li span{
+  text-align: center;
+  font-family: verdana, helvetica, sans;
+  font-size: 12px;
+}
 
 #artist_info{
 }

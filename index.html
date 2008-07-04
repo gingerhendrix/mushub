@@ -156,12 +156,7 @@
        var wikipediaPanel = artistUI.panel;
        var albumInfoPanel = albumUI.panel;
 
-       var artistInfoPanel = new Ext.Panel({
-          border: false,
-          baseCls: '',
-          width: 640,
-        	items : [wikipediaPanel, 
-        	        new Ext.Panel({ layout:'column', 
+/*       var splitColumns = new Ext.Panel({ layout:'column', 
         	                        width: 800,
         	                        baseCls: '',
         	                        border: false,
@@ -170,7 +165,14 @@
         	                                 new Ext.Panel({columnWidth : .1, border : false}), 
         	                                 similarArtistsPanel,
         	                                 new Ext.Panel({columnWidth : .05, border : false}) ]
-        	                      })],
+        	                      })]*/
+      
+       var artistInfoPanel = new Ext.Panel({
+          border: false,
+          baseCls: '',
+          width: 640,
+        	items : [wikipediaPanel, topAlbumsPanel, similarArtistsPanel]
+        	        
         });
         
        var mainPanel = new Ext.Panel({
@@ -181,6 +183,7 @@
                 new Ext.Panel({
                   region : 'center',
                   layout : 'column',
+                  autoScroll : true,
                   baseCls: '',
                   margins: '20 20 0 20',
                   border: false,
