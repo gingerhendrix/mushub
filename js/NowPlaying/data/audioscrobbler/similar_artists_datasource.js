@@ -11,7 +11,7 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
     
 
     this.onUpdate = function(response){
-      this.similar_artists(response);
+      this.similar_artists(response.similar_artists);
     }
 
   }

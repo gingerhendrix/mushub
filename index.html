@@ -16,6 +16,7 @@
         var base = "js/NowPlaying/";
       
         if(isLocalhost()){
+
           loadLibrary("utils", ["databean"]);
           loadLibrary("data", ["webservice"]);
           loadLibrary("data", ["datasource"]);
@@ -41,6 +42,8 @@
           loadLibrary("ui", ["album_info_panel"]);
           loadLibrary("ui", ["artist_info_panel"]);
           
+          loadScript(base + "startup.js");   
+          
           loadScript("js/config/config.development.js");
         }else{
           loadScript(base + "NowPlaying.js");   
@@ -65,140 +68,7 @@
     
       })();
     </script>
-
   
-    <script>
-      var started = false;
-      var updateTimer;
-      var npUI;
-      var taUI;
-      var saUI;
-      var albumUI;
-      var artistUI;
-      
-      
-      function updateUsername(username){
-        if(!started){
-          showMain(); 
-        }
-        $("username").value = username;
-        window.location.hash = "#" + username;
-        var Data = NowPlaying.data;
-        var AS = NowPlaying.data.audioscrobbler;
-        var MB = NowPlaying.data.musicbrainz;
-        var WP = NowPlaying.data.wikipedia;
-        
-        var UI = NowPlaying.ui;
-        
-        var rtData = new Data.RecentTracksDatasource(username);
-        if(updateTimer){
-          window.clearInterval(updateTimer);
-        }
-        updateTimer = window.setInterval(function(){
-            rtData.update();
-        }, 30000);
-        
-        var npData = new Data.NowPlayingDatasource(rtData);
-        var aiData = new AS.AlbumInfoDatasource();
-        var taData = new AS.TopAlbumsDatasource();
-        var saData = new AS.SimilarArtistsDatasource();
-        
-        npData.connect("album", function(album){ aiData.artist = npData.artist();  aiData.album = npData.album();  aiData.update();  });
-        npData.connect("artist", function(artist){ taData.artist = artist; taData.update(); });
-        npData.connect("artist", function(artist){ saData.artist = artist; saData.update(); });
-        
-
-        
-        npUI = new UI.NowPlayingPanel($("now_playing"), npData);        
-        taUI = new UI.TopAlbumsPanel($("top_albums_list"), taData);
-        saUI = new UI.SimilarArtistsPanel($("similar_artists_list"), saData);
-        albumUI = new UI.AlbumInfoPanel($("album_info"), new Data.AlbumInfoDatasource(npData, aiData));
-        artistUI = new UI.ArtistInfoPanel($("artist_info"), 
-                                              new Data.ArtistInfoDatasource(npData,  
-                                                                            new MB.ArtistUrlsDatasource(),
-                                                                            new WP.WikipediaDatasource())
-                                             );
-        makePanels();                                             
-        rtData.update();
-      }
-      
-      function showStart(){
-        $('main').style.display = "none";
-        $('start').style.display = "block";
-      }
-      
-      function showMain(){
-       $('start').style.display = "none";
-       $('main').style.display = "block";
-      }
-      
-      window.addEventListener("load", function(){
-         if(window.location.hash.length > 1){
-            updateUsername(window.location.hash.substring(1));
-         }else{
-          showStart();
-         }
-      }, false);
-      
-    </script> 
-    
-    <script>
-      function makePanels(){
-    
-       var username_panel = new Ext.Panel({
-          contentEl:'username_input',
-          region:'north',
-        	width: 800,
-       });
-       var nowPlayingPanel = npUI.panel;
-       var topAlbumsPanel = taUI.panel;
-       var similarArtistsPanel = saUI.panel;
-       var wikipediaPanel = artistUI.panel;
-       var albumInfoPanel = albumUI.panel;
-
-/*       var splitColumns = new Ext.Panel({ layout:'column', 
-        	                        width: 800,
-        	                        baseCls: '',
-        	                        border: false,
-        	                        items : [new Ext.Panel({columnWidth : .05, border : false}), 
-        	                                 topAlbumsPanel, 
-        	                                 new Ext.Panel({columnWidth : .1, border : false}), 
-        	                                 similarArtistsPanel,
-        	                                 new Ext.Panel({columnWidth : .05, border : false}) ]
-        	                      })]*/
-      
-       var artistInfoPanel = new Ext.Panel({
-          border: false,
-          baseCls: '',
-          width: 640,
-        	items : [wikipediaPanel, topAlbumsPanel, similarArtistsPanel]
-        	        
-        });
-        
-       var mainPanel = new Ext.Panel({
-          layout:'border',
-          region : 'center',
-          border: false,
-          items:[nowPlayingPanel, 
-                new Ext.Panel({
-                  region : 'center',
-                  layout : 'column',
-                  autoScroll : true,
-                  baseCls: '',
-                  margins: '20 20 0 20',
-                  border: false,
-                  items : [artistInfoPanel,
-                           albumInfoPanel,] 
-                })]
-       });
-  
-        // Configure viewport
-       var viewport = new Ext.Viewport({
-               layout:'border',
-               items:[username_panel, mainPanel]});
-}
-    
-    </script>
   </head>
     <style>
       body{
@@ -207,6 +77,7 @@
       input[type='text']{
         padding-left: 0.5em;
       }
+      
       
       #start{
         width: 100%;
@@ -237,77 +108,79 @@
       #start input.button{
         margin-left: 0.5em;
       }
+       #album_info.error .track_listing, #album_info.error .album_image,  #album_info.error .reach_container{
+         display : none;
+       }
+
+      
       #album_info.error .track_listing, #album_info.error .album_image,  #album_info.error .reach_container{
         display : none;
       }
       
     </style>
   <body>
-    <div id="start" style="display: none">
+  
+  <div id="start" style="display: none">
        <div class="username_input" >
           <label>last.fm username</label>
           <input type="text" id="start_username"></input>
-          <input class="button" type="button" onclick="updateUsername($('start_username').value);" value="Go"></input>  
+          <input class="button" type="button" onclick="NowPlaying.Application.updateUsername($('start_username').value);" value="Go"></input>  
        </div>
-    </div>
+  </div>
+
 
   <div id="main" style="display: none">
-
-   <div id="username_input" >
-      <label>last.fm username</label>
-      <input type="text" id="username"></input>
-      <input type="button" onclick="updateUsername($('username').value);" value="Go"></input>
-   </div>
-
-
-    <div id="now_playing">
-      <div class="now_playing_body">
-        <span class="track"></span>
-        <span class="by"> - </span>
-        <span class="artist"></span>
-        <div class="album_body">
-          <span class="album_title">From the album</span>
-          <span class="album"></span>
-        </div>
-        <span class="status"></span>
-       </div>
+    <div id="username_input" >
+        <label>last.fm username</label>
+        <input type="text" id="username"></input>
+        <input type="button" onclick="NowPlaying.Application.updateUsername($('username').value);" value="Go"></input>
      </div>
 
-     <div id="artist_wikipedia">
-        <div class="wikipedia_content">
-        </div>
-        <a href="#" class="wikipedia_url">Wikipedia</a>
-      </div>
-     <div id="similar_artists">
+
+      <div id="now_playing">
+        <div class="now_playing_body">
+          <span class="track"></span>
+          <span class="by"> - </span>
+          <span class="artist"></span>
+          <div class="album_body">
+            <span class="album_title">From the album</span>
+            <span class="album"></span>
+          </div>
+          <span class="status"></span>
+         </div>
+       </div>
+
+       <div id="artist_wikipedia">
+          <div class="wikipedia_content">
+          </div>
+          <a href="#" class="wikipedia_url">Wikipedia</a>
+       </div>
+       <div id="similar_artists">
           <ol id="similar_artists_list">
           </ol>
-    </div>
-
-    </div>
-    
-   <div id="top_albums">
-      <ol id="top_albums_list">
-      </ol>
-   </div>
-
-    <div id="album_info" >
-       <h2><span class="album"></span></h2>
-        <div class="left_column">
-           <img class="album_image" width="130" height="130"></img>
-           <div class="reach_container">
-              <span class="reach_label">Reach</span>
-            <span class="reach"></span>
-           </div>
-        </div>
-       <div class="track_listing">
-           <ol class="track_listing_list">
-            <li></li>
-            <li></li>
-            <li></li>
-           </ol>
        </div>
-       <span class="status"></span>
-    </div>
+
+    
+       <div id="top_albums">
+           <ol id="top_albums_list">
+          </ol>
+       </div>
+
+      <div id="album_info" >
+         <h2><span class="album"></span></h2>
+          <div class="left_column">
+             <img class="album_image" width="130" height="130"></img>
+             <div class="reach_container">
+                <span class="reach_label">Reach</span>
+                <span class="reach"></span>
+             </div>
+          </div>
+         <div class="track_listing">
+             <ol class="track_listing_list">
+             </ol>
+         </div>
+         <span class="status"></span>
+      </div>
   </div> 
 
   </body>

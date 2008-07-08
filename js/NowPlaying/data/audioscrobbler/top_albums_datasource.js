@@ -9,7 +9,7 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
     this.makeProp("top_albums");
    
     this.onUpdate = function(response){
-      this.top_albums(response);
+      this.top_albums(response.top_albums);
     }
 
   }
