@@ -3,6 +3,12 @@
   padding: 0 1em 0 1em;
 }
 
+#now_playing img.avatar{
+  float: left;
+  width: 70px;
+  height: 70px;
+}
+
 .now_playing_body .track{
   font-family: verdana, helvetica, sans-serif;
   font-size: 16pt;

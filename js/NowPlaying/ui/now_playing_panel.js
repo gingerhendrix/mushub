@@ -11,6 +11,7 @@ Utils.namespace("NowPlaying.ui", {
     }));
     this.element = element;
     
+    this.linkImage(datasource, "avatar", "avatar");
     this.linkHtml(datasource, "track", "track");
     this.linkHtml(datasource, "album", "album", "unknown");
     this.linkHtml(datasource, "artist", "artist");

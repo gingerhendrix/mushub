@@ -9,7 +9,7 @@ Utils.namespace("NowPlaying.utils", {
     this.makeProp = function(prop){
       
       this[prop] = function(val){
-        if(arguments.length > 0 && val != this.properties[prop]){
+        if(arguments.length > 0 && (MochiKit.Base.isUndefinedOrNull(val) || val != this.properties[prop]) ){
           this.properties[prop] = val;
           MochiKit.Signal.signal(this, prop, val);              
         }

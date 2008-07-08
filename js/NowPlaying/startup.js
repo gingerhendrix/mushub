@@ -24,10 +24,12 @@ Utils.extend(NowPlaying.Application, (function(){
           window.clearInterval(updateTimer);
         }
         updateTimer = window.setInterval(function(){
-            rtData.update();
+            NowPlaying.Application.data.recent_tracks.update();
         }, 30000);
         
-        appData.now_playing = new Data.NowPlayingDatasource(appData.recent_tracks);
+        appData.user_info = new Data.UserInfoDatasource(username);
+        
+        appData.now_playing = new Data.NowPlayingDatasource(appData.recent_tracks, appData.user_info);
         appData.album_info = new AS.AlbumInfoDatasource();
         appData.top_albums = new AS.TopAlbumsDatasource();
         appData.similar_artists = new AS.SimilarArtistsDatasource();
@@ -76,6 +78,7 @@ Utils.extend(NowPlaying.Application, (function(){
 
         makePanels();                                             
         NowPlaying.Application.data.recent_tracks.update();
+        NowPlaying.Application.data.user_info.update();
       }
       
       function showStart(){

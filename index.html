@@ -21,7 +21,8 @@
           loadLibrary("data", ["webservice"]);
           loadLibrary("data", ["datasource"]);
           
-          loadLibrary("data/audioscrobbler", ["recent_tracks_datasource",
+          loadLibrary("data/audioscrobbler", [ "user_info_datasource",
+                                               "recent_tracks_datasource",
                                                "album_info_datasource",
                                                "top_albums_datasource",
                                                "similar_artists_datasource"]);
@@ -138,6 +139,7 @@
 
 
       <div id="now_playing">
+        <img class="avatar"></img>
         <div class="now_playing_body">
           <span class="track"></span>
           <span class="by"> - </span>
@@ -153,7 +155,7 @@
        <div id="artist_wikipedia">
           <div class="wikipedia_content">
           </div>
-          <a href="#" class="wikipedia_url">Wikipedia</a>
+          <a href="#" class="wikipedia_url"></a>
        </div>
        <div id="similar_artists">
           <ol id="similar_artists_list">

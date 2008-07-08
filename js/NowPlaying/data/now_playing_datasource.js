@@ -1,10 +1,11 @@
 
 Utils.namespace("NowPlaying.data", { 
-  NowPlayingDatasource : function (recentTracksDatasource){
+  NowPlayingDatasource : function (recentTracksDatasource, userInfoDatasource){
     this.makeProp("album");
     this.makeProp("track");
     this.makeProp("artist");
     this.makeProp("artist_mbid");
+    this.makeProp("avatar");
     
     this.onUpdate = function(recent_tracks){
       var now_playing = recent_tracks[0];
@@ -14,11 +15,12 @@ Utils.namespace("NowPlaying.data", {
       this.artist_mbid(now_playing.artist_mbid);
       MochiKit.Signal.signal(this, "endUpdate");    
     }
-     
+    
     recentTracksDatasource.connect("recent_tracks", this, "onUpdate");
     recentTracksDatasource.connect("beginUpdate", this, function(){
        MochiKit.Signal.signal(this, "beginUpdate");    
     });
+    userInfoDatasource.connect("avatar", this, "avatar");    
  }
 });
 

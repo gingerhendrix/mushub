@@ -15,7 +15,7 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
 
     this.onUpdate = function(album){
       this.album_reach(album.reach);
-      this.album_image(album.image_small);
+      this.album_image(album.image_large);
       this.album_track_listing(album.tracks);
     }
  }

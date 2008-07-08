@@ -8,18 +8,30 @@ Utils.namespace("NowPlaying.data", {
   
     this.onUrlChange = function(urls){
       var self = this;
+      var found = false;
       urls.forEach(function(link){
         if(link.rel == "Wikipedia"){
           self.wikipedia_url(link.href);
           self.updateWikipedia(link.href);
+          found = true;
         }
       });
+      if(!found){
+        MochiKit.Signal.signal(this, "endUpdate");
+        MochiKit.Signal.signal(this, "error", "No wikipedia page found");        
+      }
+      
     }
     
     this.updateMusicbrainz = function(artist_mbid){
       urlDatasource.artist_mbid = artist_mbid;
-      MochiKit.Signal.signal(this, "beginUpdate");    
-      urlDatasource.update();
+      if(MochiKit.Base.isUndefinedOrNull(artist_mbid)){
+        MochiKit.Signal.signal(this, "endUpdate");
+        MochiKit.Signal.signal(this, "error", "Musicbrainz id not page found");        
+      }else{
+        MochiKit.Signal.signal(this, "beginUpdate");    
+        urlDatasource.update();       
+      }
     }
     
     this.updateWikipedia = function(url){
