@@ -1,13 +1,17 @@
 Utils.namespace("NowPlaying.ui", { 
   TopAlbumsPanel : function(element, datasource, config){
+    this.element = element;
+    var self = this;
      Utils.extend(this, new NowPlaying.ui.ContentPanel({
         	title: 'Top Albums',
-        	contentEl:'top_albums',
         	columnWidth: .40,
+          contentEl : "top_albums"
       }));
+      
         
     this.onChange = function(top_albums){
-      element.innerHTML = "";
+      this.element.innerHTML = "";
+      
       var max_reach = top_albums[0].reach;
       
       top_albums.slice(0, 8).forEach(function(album){
@@ -22,7 +26,7 @@ Utils.namespace("NowPlaying.ui", {
         album_li.appendChild(album_label);
         //var reach_bar = create_bar((album.reach/max_reach));
         //album_li.appendChild(reach_bar);
-        element.appendChild(album_li);
+        self.element.appendChild(album_li);
       });
     }
     this.linkStatus(datasource);

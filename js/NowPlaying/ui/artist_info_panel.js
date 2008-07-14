@@ -17,6 +17,8 @@ Utils.namespace("NowPlaying.ui", {
       this.panel.getBottomToolbar().showBusy();
     });
     datasource.connect("error", this, function(msg){
+      this.panel.body.enableDisplayMode();
+      this.panel.body.setVisible(false);
       this.panel.getBottomToolbar().setStatus({text : "Error - " + msg , iconCls : 'x-status-error'});
     });
     

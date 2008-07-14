@@ -29,9 +29,7 @@
           loadLibrary("data/musicbrainz", ["artist_urls_datasource"]);
           loadLibrary("data/wikipedia", ["wikipedia_datasource"]);
 
-          loadLibrary("data", ["now_playing_datasource"]);
-          loadLibrary("data", ["album_info_datasource"]);
-          loadLibrary("data", ["artist_info_datasource"]);
+          loadLibrary("data", ["application_datasource", "now_playing_datasource", "album_info_datasource", "artist_info_datasource"]);
 
           loadLibrary("ui", ["bar_chart"]);
 
@@ -42,6 +40,8 @@
           loadLibrary("ui", ["similar_artists_panel"]);
           loadLibrary("ui", ["album_info_panel"]);
           loadLibrary("ui", ["artist_info_panel"]);
+          loadLibrary("ui", ["application_ui"]);
+          loadLibrary("ui", ["artist_tab"]);
           
           loadScript(base + "startup.js");   
           
@@ -130,7 +130,7 @@
   </div>
 
 
-  <div id="main" style="display: none">
+
     <div id="username_input" >
         <label>last.fm username</label>
         <input type="text" id="username"></input>
@@ -184,7 +184,7 @@
          </div>
          <span class="status"></span>
       </div>
-  </div> 
+
 
   </body>
   

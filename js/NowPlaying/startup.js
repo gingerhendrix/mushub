@@ -1,69 +1,30 @@
 
 Utils.namespace("NowPlaying.Application", {});
 Utils.extend(NowPlaying.Application, (function(){
-
       var started = false;
-      var updateTimer;
-      var npUI;
-      var taUI;
-      var saUI;
-      var albumUI;
-      var artistUI;
+      
+      /**
+         
+         TODO
+         ====
+         
+         Move makePanels into applicationUI 
+         Refactor application UI into sub components
+         Move leftovers into spearate bits (usernamepanel, username datasource)
+         Create new ArtistInfoTab to show arbitrary artist info - refactor with NowPlayingTab to have common ancestor
+         Add a search box somewhere to open new tabs
+         Make artists links clickable
+         Remove album  info
+         Make albums clickable - and show album info mini-window (overlay)
+                
+       **/
   
       function initialiseDatasources(username){
-        Utils.namespace("NowPlaying.Application.data", {});
-        var appData = NowPlaying.Application.data;
-
-        var Data = NowPlaying.data;
-        var AS = NowPlaying.data.audioscrobbler;
-        var MB = NowPlaying.data.musicbrainz;
-        var WP = NowPlaying.data.wikipedia;
-      
-        appData.recent_tracks = new Data.RecentTracksDatasource(username);
-        if(updateTimer){
-          window.clearInterval(updateTimer);
-        }
-        updateTimer = window.setInterval(function(){
-            NowPlaying.Application.data.recent_tracks.update();
-        }, 30000);
-        
-        appData.user_info = new Data.UserInfoDatasource(username);
-        
-        appData.now_playing = new Data.NowPlayingDatasource(appData.recent_tracks, appData.user_info);
-        appData.album_info = new AS.AlbumInfoDatasource();
-        appData.top_albums = new AS.TopAlbumsDatasource();
-        appData.similar_artists = new AS.SimilarArtistsDatasource();
-        
-        appData.now_playing.connect("album", function(album){
-                                         appData.album_info.artist = appData.now_playing.artist(); 
-                                         appData.album_info.album = appData.now_playing.album(); 
-                                         appData.album_info.update();  
-                                    });
-        appData.now_playing.connect("artist", function(artist){ 
-                                        appData.top_albums.artist = artist; 
-                                        appData.top_albums.update(); 
-                                    });
-        appData.now_playing.connect("artist", function(artist){ 
-                                        appData.similar_artists.artist = artist; 
-                                        appData.similar_artists.update(); 
-                                    });
-        
+        NowPlaying.Application.data = new NowPlaying.data.ApplicationDatasource(username);
       }      
       
       function initialiseUI(){
-        var UI = NowPlaying.ui;
-        var Data = NowPlaying.data;
-        var appUI = Utils.namespace("NowPlaying.Application.ui");
-        var appData = NowPlaying.Application.data;
-        
-        appUI.now_playing = new UI.NowPlayingPanel($("now_playing"), appData.now_playing);        
-        appUI.top_albums = new UI.TopAlbumsPanel($("top_albums_list"), appData.top_albums);
-        appUI.similar_artists = new UI.SimilarArtistsPanel($("similar_artists_list"), appData.similar_artists);
-        appUI.album_info = new UI.AlbumInfoPanel($("album_info"), new Data.AlbumInfoDatasource(appData.now_playing, appData.album_info));
-        appUI.artist_info = new UI.ArtistInfoPanel($("artist_info"), 
-                                              new Data.ArtistInfoDatasource(appData.now_playing,  
-                                                                            new Data.musicbrainz.ArtistUrlsDatasource(),
-                                                                            new Data.wikipedia.WikipediaDatasource()));
+        NowPlaying.Application.ui = new NowPlaying.ui.ApplicationUI(NowPlaying.Application.data);
       }
       
       function updateUsername(username){
@@ -82,13 +43,13 @@ Utils.extend(NowPlaying.Application, (function(){
       }
       
       function showStart(){
-        $('main').style.display = "none";
+        //$('main').style.display = "none";
         $('start').style.display = "block";
       }
       
       function showMain(){
        $('start').style.display = "none";
-       $('main').style.display = "block";
+       //$('main').style.display = "block";
       }
       
       function makePanels(){
@@ -124,30 +85,32 @@ Utils.extend(NowPlaying.Application, (function(){
         	        
         });
         
-       var mainPanel = new Ext.Panel({
-          layout:'border',
-          region : 'center',
-          border: false,
-          items:[nowPlayingPanel, 
-                new Ext.Panel({
-                  region : 'center',
-                  layout : 'column',
-                  autoScroll : true,
-                  baseCls: '',
-                  margins: '20 20 0 20',
-                  border: false,
-                  items : [artistInfoPanel,
-                           albumInfoPanel,] 
-                })]
+       var nowPlayingTab = new NowPlaying.ui.ArtistTab({
+           items : [artistInfoPanel, albumInfoPanel] 
        });
-  
+
+      
+       var tabPanel = new Ext.TabPanel({
+          region : 'center',
+          margins: '20 20 0 20',
+          activeTab : 0,
+          items : [nowPlayingTab, {title: "808 State"}]
+       });
+       
+       var mainPanel = new Ext.Panel({
+          layout: 'border',
+          region: 'center',
+          items: [nowPlayingPanel, tabPanel]
+       });
+
         // Configure viewport
        var viewport = new Ext.Viewport({
                layout:'border',
-               items:[username_panel, mainPanel]});
-}
+               items:[username_panel, mainPanel]
+       });
     
-      
+    }      
+    
       window.addEventListener("load", function(){
          if(window.location.hash.length > 1){
             updateUsername(window.location.hash.substring(1));
@@ -160,6 +123,7 @@ Utils.extend(NowPlaying.Application, (function(){
   return {
       updateUsername : updateUsername
   };
-})());
+}
+)());
   
 

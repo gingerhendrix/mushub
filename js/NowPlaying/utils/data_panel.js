@@ -20,7 +20,11 @@ Utils.namespace("NowPlaying.ui", {
     
     this.linkStatus = function(datasource, elementClass){
       datasource.connect("beginUpdate", this, function(){  this.panel.getBottomToolbar().showBusy();  });
-      datasource.connect("endUpdate", this, function(){   this.panel.getBottomToolbar().clearStatus();  });
+      datasource.connect("endUpdate", this, function(){   
+      this.panel.body.setVisibilityMode(Element.DISPLAY);
+      this.panel.body.setVisible(true);
+        this.panel.getBottomToolbar().clearStatus();
+      });
     }
   }
 });
