@@ -24,10 +24,43 @@ try {
 })();
 
 MochiKit.Base.update(MochiKit.Async, {
+    jsonpQueue : (function(){
+        var queue = [];
+        var paused = true;
+
+        function processNext(){
+          var p = queue.shift();
+          MochiKit.Async._sendJSONPRequest(p.deferred, p.url, p.callback_query, p.timeout, p.options);
+        }
+        
+        return {
+          add : function(params){
+            var d = new MochiKit.Async.Deferred();
+            params.deferred = d;
+            queue.push(params);
+            if(paused){
+              this.next();
+            }
+            return d;
+          },
+          next : function(){
+            if(queue.length > 0){
+              paused = false;
+              processNext();
+            }else{
+              paused = true;
+            }
+          }        
+        }
+    })(),
     sendJSONPRequest: function (url, callback_query, timeout/* = 30 */, _options/* optional */) {
+        return MochiKit.Async.jsonpQueue.add({url : url, callback_query : callback_query, timeout : timeout, options : _options});
+    },
+    _sendJSONPRequest: function (d, url, callback_query, timeout/* = 30 */, _options/* optional */) {
         var m = MochiKit.Base;
         var self = MochiKit.Async;
         var callbackId = '_' + self.JSONPCallbacks.nextCallbackId();
+        var queue = self.jsonpQueue
 
         if (typeof(timeout) == "undefined" || timeout === null) {
             timeout = 60;
@@ -48,7 +81,7 @@ MochiKit.Base.update(MochiKit.Async, {
         queryParams[callback_query] = 'MochiKit.Async.JSONPCallbacks.' + callbackId;
         url += '?' + m.queryString(queryParams);
 
-        var d = new self.Deferred();
+//        var d = new self.Deferred();
         self.JSONPCallbacks[callbackId] = partial(self._jsonp_callback_handler, d, callbackId);
 
         var script = document.createElement('script');
@@ -96,6 +129,7 @@ MochiKit.Base.update(MochiKit.Async, {
             // pass
         }
         MochiKit.Async.JSONPCallbacks[callbackId] = function() {};
+        MochiKit.Async.jsonpQueue.next();
     }
 });
 
