@@ -1,7 +1,11 @@
 
 Utils.namespace("NowPlaying.data", { 
-  ArtistInfoDatasource : function(npDatasource, urlDatasource, wpDatasource){ 
+  ArtistInfoDatasource : function(artist, artist_mbid){ 
     var self = this;
+    
+    this.artist_name = artist;
+    this.artist_mbid = artist_mbid;
+    
     this.makeProp("artist");  
     this.makeProp("wikipedia_url");
     this.makeProp("wikipedia_content");
@@ -27,7 +31,7 @@ Utils.namespace("NowPlaying.data", {
       urlDatasource.artist_mbid = artist_mbid;
       if(MochiKit.Base.isUndefinedOrNull(artist_mbid)){
         MochiKit.Signal.signal(this, "endUpdate");
-        MochiKit.Signal.signal(this, "error", "Musicbrainz id not page found");        
+        MochiKit.Signal.signal(this, "error", "Musicbrainz id not found");        
       }else{
         MochiKit.Signal.signal(this, "beginUpdate");    
         urlDatasource.update();       
@@ -40,9 +44,13 @@ Utils.namespace("NowPlaying.data", {
       wpDatasource.update();
     }
     
-    npDatasource.connect("artist", this, "artist");
-    npDatasource.connect("artist_mbid", this, "updateMusicbrainz");
+    this.update = function(){
+      this.updateMusicbrainz(this.artist_mbid);
+    }
+    
+    urlDatasource = new NowPlaying.data.musicbrainz.ArtistUrlsDatasource();
     urlDatasource.connect("artist_urls", this, "onUrlChange");
+    wpDatasource = new NowPlaying.data.wikipedia.WikipediaDatasource();
     wpDatasource.connect("wikipedia_content", this, "wikipedia_content");
     
     [wpDatasource].forEach(function(ds){ 

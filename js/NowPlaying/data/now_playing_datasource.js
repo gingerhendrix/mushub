@@ -13,7 +13,7 @@ Utils.namespace("NowPlaying.data", {
       this.artist(now_playing.artist);
       this.album(now_playing.album);
       this.artist_mbid(now_playing.artist_mbid);
-      MochiKit.Signal.signal(this, "endUpdate");    
+      MochiKit.Signal.signal(this, "endUpdate", this);    
     }
     
     recentTracksDatasource.connect("recent_tracks", this, "onUpdate");

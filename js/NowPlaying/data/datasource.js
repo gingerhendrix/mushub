@@ -16,6 +16,7 @@ Utils.namespace("NowPlaying.data", {
     }
     
     this.update = function(){
+      console.log("Datasource.update : %o ", this);
       MochiKit.Signal.signal(this, "beginUpdate");
       try{
         params = makeParams(this, config.params);
@@ -26,8 +27,12 @@ Utils.namespace("NowPlaying.data", {
       var d = sendJSONPRequest(url, "jsonp");
       var self = this;
       d.addCallback(function(response){
+          console.log("Datasource[anonymous callback] : %o : %o", self, response);
           self.onUpdate(response);
           MochiKit.Signal.signal(self, "endUpdate");
+      });
+      d.addErrback(function(response){
+        console.error("Datasource[anon errback] : %o : %o", self, response);
       });
       return d;
     }

@@ -12,14 +12,16 @@ try {
 } catch (e) {
     throw "MochiKit.Async JSONP depends on MochiKit.Async!";
 }
-
-if (typeof(MochiKit.Async.JSONPCallbacks) == 'undefined') {
+(function(){
+  var counter = 0;
+  if (typeof(MochiKit.Async.JSONPCallbacks) == 'undefined') {
     MochiKit.Async.JSONPCallbacks = {
         // WinIE suck , IE error and die...
         // nextCallbackId: MochiKit.Base.counter()
-        nextCallbackId: function() { return Number(new Date) }
+        nextCallbackId: function() { return (counter++) + "" + Number(new Date()) }
     };
-}
+  }
+})();
 
 MochiKit.Base.update(MochiKit.Async, {
     sendJSONPRequest: function (url, callback_query, timeout/* = 30 */, _options/* optional */) {
@@ -28,7 +30,7 @@ MochiKit.Base.update(MochiKit.Async, {
         var callbackId = '_' + self.JSONPCallbacks.nextCallbackId();
 
         if (typeof(timeout) == "undefined" || timeout === null) {
-            timeout = 30;
+            timeout = 60;
         }
         var options = {
             'type': 'text/javascript',
@@ -47,7 +49,7 @@ MochiKit.Base.update(MochiKit.Async, {
         url += '?' + m.queryString(queryParams);
 
         var d = new self.Deferred();
-        self.JSONPCallbacks[callbackId] = partial(self._jsonp_callback_handler, d);
+        self.JSONPCallbacks[callbackId] = partial(self._jsonp_callback_handler, d, callbackId);
 
         var script = document.createElement('script');
         m.update(script, options);
@@ -67,15 +69,17 @@ MochiKit.Base.update(MochiKit.Async, {
         d.canceller = m.partial(self._jsonp_canceller, callbackId, timeout);
         
         setTimeout(function() {
+            console.log("Appending script " + callbackId);
             document.getElementsByTagName('head')[0].appendChild(script);
         }, 1); // for opera
 
         return d;
     },
     
-    _jsonp_callback_handler: function(d, json) {
-        d.canceller(); // remove script element and clear timeout
+    _jsonp_callback_handler: function(d, callbackId, json) {
+        console.log("_json_callback_handler[%n] - %o : %o",callbackId, d, json);
         d.callback(json);
+        d.canceller(); // remove script element and clear timeout
     },
 
     _jsonp_canceller: function(callbackId, timeout) {

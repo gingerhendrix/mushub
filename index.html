@@ -29,7 +29,7 @@
           loadLibrary("data/musicbrainz", ["artist_urls_datasource"]);
           loadLibrary("data/wikipedia", ["wikipedia_datasource"]);
 
-          loadLibrary("data", ["application_datasource", "now_playing_datasource", "album_info_datasource", "artist_info_datasource"]);
+          loadLibrary("data", ["application_datasource", "now_playing_datasource", "album_info_datasource", "artist_info_datasource", "artist_tab_datasource"]);
 
           loadLibrary("ui", ["bar_chart"]);
 
@@ -159,18 +159,7 @@
           </div>
           <a href="#" class="wikipedia_url"></a>
        </div>
-       <div id="similar_artists">
-        <ol id="similar_artists_list">
-        </ol>
-        <br style="clear: both"/>
-       </div>
-
-    
-       <div id="top_albums">
-           <ol id="top_albums_list">
-          </ol>
-       </div>
-
+           
       <div id="album_info" >
          <h2><span class="album"></span></h2>
           <div class="left_column">
