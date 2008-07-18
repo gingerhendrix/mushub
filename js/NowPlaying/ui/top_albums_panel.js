@@ -13,14 +13,26 @@ Utils.namespace("NowPlaying.ui", {
         },
         updateContent : function(){
          console.log("TopAlbumsPanel.updateContent");
+         if(!this.body){
+        //   console.log("TopAlbumsPanel: Body not yet defined");
+           return;
+         }
+
          var self = this;
           if( !this.top_albums ){
             this.body.innerHTML = "Data not loaded";
             return;
           }
           var max_reach = this.top_albums[0].reach;
-          var albumList = document.createElement("ol");
-          albumList.setAttribute("class", "top_albums_list");
+          if(!this.albumList){
+              this.albumList = document.createElement("ol");
+              this.albumList.setAttribute("class", "top_albums_list");
+              this.body.appendChild(this.albumList);
+          }else{
+            this.albumList.innerHTML = ""; 
+          }
+          
+
           this.top_albums.slice(0, 8).forEach(function(album){
             var album_li = document.createElement("li");
             var album_img = document.createElement("img");
@@ -33,16 +45,12 @@ Utils.namespace("NowPlaying.ui", {
             album_li.appendChild(album_label);
             //var reach_bar = create_bar((album.reach/max_reach));
             //album_li.appendChild(reach_bar);
-            albumList.appendChild(album_li);
+            self.albumList.appendChild(album_li);
           });
-          if(this.body){
-            this.body.innerHTML = "";
-            this.body.appendChild(albumList);
-          }else{
-            console.log("TopAlbumsPanel: Body not yet defined");
-            alert("Body: not yet defined");
-          }
+
+
         },
+        
         onRender : function(ct, position){
            console.log("TopAlbumsPanel.onRender");
            NowPlaying.ui.TopAlbumsPanel.superclass.onRender.apply(this, arguments);

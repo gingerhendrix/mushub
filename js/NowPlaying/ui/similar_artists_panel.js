@@ -21,11 +21,10 @@ Utils.namespace("NowPlaying.ui", {
           redraw : function(){
             if(!this.body){ return; }
             
-            this.body.innerHTML = "";
             Ext.get(this.body).removeClass("quilt");   
             Ext.get(this.body).removeClass("table");   
             if(this.showQuilt){
-              this.similarArtistsQuilt(this.body, this.similar_artists);
+                this.similarArtistsQuilt(this.similar_artists);
             }else{
               this.similarArtistsTable(this.element, this.similar_artists);
             }
@@ -63,11 +62,16 @@ Utils.namespace("NowPlaying.ui", {
               this.redraw()    
           },
           
-          similarArtistsQuilt : function(container, similar_artists){
-
-             var element = document.createElement("ol");
-             element.setAttribute("class", "quilt");
-             container.appendChild(element);
+          similarArtistsQuilt : function(similar_artists){
+              if(this.quilt){
+                var element = this.quilt;
+                element.innerHTML = "";
+              }else{
+                this.quilt = document.createElement("ol");
+                this.quilt.setAttribute("class", "quilt");
+                this.body.appendChild(this.quilt);
+                var element = this.quilt;
+              }
              
              function makeThumbnail(artist, clazz, size, label){
                 var similar_li = document.createElement("li");
