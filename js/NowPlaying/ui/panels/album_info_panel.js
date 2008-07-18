@@ -1,4 +1,4 @@
-Utils.namespace("NowPlaying.ui", {
+Utils.namespace("NowPlaying.ui.panels", {
   AlbumInfoPanel : function(element, datasource){
     this.element = element;
     Utils.extend(this, new NowPlaying.ui.ContentPanel({
@@ -33,4 +33,3 @@ Utils.namespace("NowPlaying.ui", {
   }
 });
 
-NowPlaying.ui.AlbumInfoPanel.prototype = new NowPlaying.ui.DataPanel();

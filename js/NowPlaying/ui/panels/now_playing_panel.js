@@ -1,4 +1,4 @@
-Utils.namespace("NowPlaying.ui", {    
+Utils.namespace("NowPlaying.ui.panels", {    
   NowPlayingPanel : Ext.extend(Ext.Panel, {
       	title: 'Now Playing',
        	contentEl:'now_playing',

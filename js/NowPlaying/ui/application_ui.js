@@ -3,16 +3,19 @@ Utils.namespace("NowPlaying.ui", {
     this.datasource = datasource;
     
     var UI = NowPlaying.ui;
+    var Panels = UI.panels;
+    var Tabs = UI.tabs;
+    
     var Data = NowPlaying.data;
     var appUI = Utils.namespace("NowPlaying.Application.ui");
     var appData = NowPlaying.Application.data;
      
-    this.topbar = new UI.UsernamePanel({
+    this.topbar = new Panels.UsernamePanel({
           region:'north',
         	width: 800,
     });  
      
-    this.infoPanel = new UI.NowPlayingPanel({datasource : datasource.now_playing});        
+    this.infoPanel = new Panels.NowPlayingPanel({datasource : datasource.now_playing});        
     
   //  var datasource1 = new Data.ArtistTabDatasource("Twisted Sister", "c6122fee-089f-41c4-a34f-e5f7e5607b05");
     var datasource2 = new Data.ArtistTabDatasource("The Flower Kings", "0a389268-6fd8-4f8c-ab6e-0dba5ecec66b");
@@ -22,8 +25,8 @@ Utils.namespace("NowPlaying.ui", {
           margins: '20 20 0 20',
           activeTab : 1,
           deferredRender : false,
-          items : [new NowPlaying.ui.ArtistTab({datasource : this.datasource.now_playing_tab }),
-                   new NowPlaying.ui.ArtistTab({datasource : datasource2})
+          items : [new Tabs.ArtistTab({datasource : this.datasource.now_playing_tab }),
+                   new Tabs.ArtistTab({datasource : datasource2})
                   ]
     });
     

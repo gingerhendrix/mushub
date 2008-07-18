@@ -1,4 +1,4 @@
-Utils.namespace("NowPlaying.ui", {
+Utils.namespace("NowPlaying.ui.panels", {
   ContentPanel : function(config){
     Utils.extend(this, new NowPlaying.ui.DataPanel());
     config =  Utils.extend( {

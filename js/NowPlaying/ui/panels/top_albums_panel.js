@@ -1,4 +1,4 @@
-Utils.namespace("NowPlaying.ui", { 
+Utils.namespace("NowPlaying.ui.panels", { 
     TopAlbumsPanel : Ext.extend(Ext.Panel, {
        	title: 'Top Albums',
         cls : 'contentpanel',

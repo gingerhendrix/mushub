@@ -1,4 +1,4 @@
-Utils.namespace("NowPlaying.ui", {
+Utils.namespace("NowPlaying.ui.panels", {
   ArtistInfoPanel : function(element, datasource){
     this.element = element;
     Utils.extend(this, new NowPlaying.ui.ContentPanel({

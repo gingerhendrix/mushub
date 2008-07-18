@@ -1,4 +1,4 @@
-Utils.namespace("NowPlaying.ui", { 
+Utils.namespace("NowPlaying.ui.panels", { 
   SimilarArtistsPanel :  Ext.extend(Ext.Panel, {
           title: 'Similar Artists',
         	contentEl:'similar_artists',
