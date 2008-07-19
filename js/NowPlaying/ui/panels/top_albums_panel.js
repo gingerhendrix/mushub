@@ -3,9 +3,10 @@ Utils.namespace("NowPlaying.ui.panels", {
        	title: 'Top Albums',
         cls : 'contentpanel',
         ctCls : 'top_albums',
+        width: 640,
         initComponent : function(){
             this.datasource.connect("top_albums", this, "onChange");   
-            NowPlaying.ui.TopAlbumsPanel.superclass.initComponent.apply(this, arguments);
+            NowPlaying.ui.panels.TopAlbumsPanel.superclass.initComponent.apply(this, arguments);
         },
         onChange : function(top_albums){
           this.top_albums = top_albums;
@@ -47,13 +48,11 @@ Utils.namespace("NowPlaying.ui.panels", {
             //album_li.appendChild(reach_bar);
             self.albumList.appendChild(album_li);
           });
-
-
         },
         
         onRender : function(ct, position){
            console.log("TopAlbumsPanel.onRender");
-           NowPlaying.ui.TopAlbumsPanel.superclass.onRender.apply(this, arguments);
+           NowPlaying.ui.panels.TopAlbumsPanel.superclass.onRender.apply(this, arguments);
            this.updateContent();
        }
     }),

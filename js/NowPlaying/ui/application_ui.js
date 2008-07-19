@@ -18,20 +18,20 @@ Utils.namespace("NowPlaying.ui", {
     this.infoPanel = new Panels.NowPlayingPanel({datasource : datasource.now_playing});        
     
   //  var datasource1 = new Data.ArtistTabDatasource("Twisted Sister", "c6122fee-089f-41c4-a34f-e5f7e5607b05");
-    var datasource2 = new Data.ArtistTabDatasource("The Flower Kings", "0a389268-6fd8-4f8c-ab6e-0dba5ecec66b");
+  //  var datasource2 = new Data.ArtistTabDatasource("The Flower Kings", "0a389268-6fd8-4f8c-ab6e-0dba5ecec66b");
     
     this.tabPanel = new Ext.TabPanel({
           region : 'center',
           margins: '20 20 0 20',
-          activeTab : 1,
+          activeTab : 0,
           deferredRender : false,
           items : [new Tabs.ArtistTab({datasource : this.datasource.now_playing_tab }),
-                   new Tabs.ArtistTab({datasource : datasource2})
+     //              new Tabs.ArtistTab({datasource : datasource2})
                   ]
     });
     
    // datasource1.update();
-    datasource2.update();
+   // datasource2.update();
     
     this.viewport = new Ext.Viewport({
                layout:'border',

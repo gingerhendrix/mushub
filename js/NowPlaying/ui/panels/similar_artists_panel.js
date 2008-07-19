@@ -1,10 +1,9 @@
 Utils.namespace("NowPlaying.ui.panels", { 
   SimilarArtistsPanel :  Ext.extend(Ext.Panel, {
           title: 'Similar Artists',
-        	contentEl:'similar_artists',
-        	height: '520',
-        	autoScroll: true,
-        	columnWidth: .40,
+        	height: 520,
+          width: 640,
+        	//autoScroll: true,
         	showQuilt : true,
  	        cls : 'contentpanel',
           ctCls : 'similar_artists',
