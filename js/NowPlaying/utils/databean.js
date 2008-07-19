@@ -1,7 +1,7 @@
 Utils.namespace("NowPlaying.utils", {
  DataBean : function(){
     this.properties = {};
-    
+    console.log("New Databean %o", this);
     this.connect = function(name, obj, method){
       MochiKit.Signal.connect(this, name, obj, method);
     }

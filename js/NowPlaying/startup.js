@@ -56,10 +56,10 @@ Utils.extend(NowPlaying.Application, (function(){
        $('start').style.display = "none";
        //$('main').style.display = "block";
       }
-       
+      
  
   return {
-      updateUsername : updateUsername
+      updateUsername : updateUsername,
   };
 }
 )());

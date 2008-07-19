@@ -61,7 +61,11 @@ Utils.namespace("NowPlaying.ui.panels", {
               this.redraw()    
           },
           
+          onArtistClick : function(artist){
+            NowPlaying.Application.ui.openArtistTab(artist.name, artist.mbid);
+          },
           similarArtistsQuilt : function(similar_artists){
+              var self  = this;
               if(this.quilt){
                 var element = this.quilt;
                 element.innerHTML = "";
@@ -81,6 +85,9 @@ Utils.namespace("NowPlaying.ui.panels", {
                 artist_img.title = artist.name + " (" + artist.match + "%)";
                 artist_img.width = size;
                 artist_img.height = size;
+                artist_img.addEventListener("click", function(){
+                  self.onArtistClick(artist);
+                }, false);
                 similar_li.appendChild(artist_img);
 
                 if(label){

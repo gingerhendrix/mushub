@@ -25,7 +25,7 @@ Utils.namespace("NowPlaying.ui", {
           margins: '20 20 0 20',
           activeTab : 0,
           deferredRender : false,
-          items : [new Tabs.ArtistTab({datasource : this.datasource.now_playing_tab }),
+          items : [new Tabs.ArtistTab({title : "Now Playing", datasource : this.datasource.now_playing_tab }),
      //              new Tabs.ArtistTab({datasource : datasource2})
                   ]
     });
@@ -43,6 +43,15 @@ Utils.namespace("NowPlaying.ui", {
               })]
     });
     
+    this.openArtistTab = function(artist_name, artist_mbid){
+        var datasource = new Data.ArtistTabDatasource(artist_name, artist_mbid);
+        console.log("datasource: %o", datasource);
+        var tab = new Tabs.ArtistTab({title: artist_name, datasource : datasource });
+        this.tabPanel.add(tab);
+        this.tabPanel.activate(tab);
+        this.tabPanel.doLayout();
+        datasource.update();
+      }
 
   }
 });

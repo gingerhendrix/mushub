@@ -13,7 +13,7 @@ Utils.namespace("NowPlaying.ui.panels", {
       this.updateContent();
     },
     updateContent : function(){
-      console.log("ArtistInfoPanel: updateContent");
+      console.log("ArtistInfoPanel: updateContent (body: " + this.body + ", wp_content: " + this.datasource.wikipedia_content() + ", contentEl: " + this.contentEl + ")");
       if(!this.body){
          return;
       }

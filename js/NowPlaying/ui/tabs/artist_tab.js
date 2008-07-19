@@ -1,6 +1,6 @@
 Utils.namespace("NowPlaying.ui.tabs", {
   ArtistTab : Ext.extend(Ext.Panel, {
-      title : "Now Playing",
+      title : "Artist Info",
       layout : 'fit',
       active: true,
       autoScroll : true,
