@@ -3,7 +3,7 @@ Utils.namespace("NowPlaying.ui.panels", {
        	title: 'Top Albums',
         cls : 'contentpanel',
         ctCls : 'top_albums',
-        width: 640,
+        width: 160,
         initComponent : function(){
             this.datasource.connect("top_albums", this, "onChange");   
             NowPlaying.ui.panels.TopAlbumsPanel.superclass.initComponent.apply(this, arguments);

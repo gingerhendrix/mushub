@@ -19,9 +19,9 @@ Utils.namespace("NowPlaying.ui.tabs", {
        var artistInfoPanel = new Ext.Panel({
           border: false,
          	autoScroll: true,
-        	items : [artist_info,
-        	         top_albums,
-        	         similar_artists
+         	layout : "column",
+        	items : [{ border: false, width: 660, items : [ artist_info, similar_artists ] },
+        	         { border: false, width: 200, items : [ top_albums ] }
         	        ]
         });
         

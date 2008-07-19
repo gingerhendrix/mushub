@@ -62,15 +62,17 @@
   font-family: verdana, helvetica, sans;
 }
       
-#artist_wikipedia {
-  padding: 0.5em 1em 0.5em 1em;
-  font-size: 11pt;
+.wikipedia_content {
+  padding: 1em 1em 0.5em 1em;
+  font-size: 12px;
 }
 
-#artist_wikipedia p{
+.wikipedia_content p{
   margin-bottom: 0.5em;
 }
-
+.wikipedia_content sup{
+  display: none;
+}
 #album_track_listing{
   font-size: 12px;
 }
@@ -80,13 +82,17 @@
  padding: 0.5em 1em 0.5em 1em;
 }
 
+.top_albums ol{
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
 .top_albums li{
-  float: left;
   list-style: none;
   width: 130px;
   margin-right: 10px;
-  margin-bottom: 10px;
-  height: 200px;
+  margin-bottom: 14px;
 
 }
 .similar_artists .view_menu{
