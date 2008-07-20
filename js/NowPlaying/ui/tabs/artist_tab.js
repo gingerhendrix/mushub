@@ -5,6 +5,7 @@ Utils.namespace("NowPlaying.ui.tabs", {
       active: true,
       autoScroll : true,
       deferredRender : false,
+      closable : true,
       initComponent : function(){
        var UI = NowPlaying.ui;
        var Panels = UI.panels;
@@ -15,13 +16,14 @@ Utils.namespace("NowPlaying.ui.tabs", {
        var similar_artists = new Panels.SimilarArtistsPanel({datasource : this.datasource.similar_artists});
        //var album_info = new UI.AlbumInfoPanel($("album_info"), new Data.AlbumInfoDatasource(this.datasource.now_playing, this.datasource.album_info));
        var artist_info = new Panels.ArtistInfoPanel({datasource : this.datasource.artist_info});
+       var artist_links = new Panels.ArtistLinksPanel({datasource : this.datasource.artist_links});
 
        var artistInfoPanel = new Ext.Panel({
           border: false,
          	autoScroll: true,
          	layout : "column",
         	items : [{ border: false, width: 660, items : [ artist_info, similar_artists ] },
-        	         { border: false, width: 200, items : [ top_albums ] }
+        	         { border: false, width: 200, items : [ artist_links, top_albums ] }
         	        ]
         });
         

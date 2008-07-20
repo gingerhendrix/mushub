@@ -73,16 +73,42 @@
 .wikipedia_content sup{
   display: none;
 }
-#album_track_listing{
+
+.artist_links{
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-bottom: 15px;
   font-size: 12px;
 }
 
-.top_albums, .similar_artists{
+.artist_links li{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.artist_links a{
+  color: #000000;
+  text-decoration: none;
+  font-family: verdana, helvetica, sans;
+}
+
+.artist_links a:hover{
+   text-decoration: underline;
+}
+
+.similar_artists{
  font-size: 12px;
  padding: 0.5em 1em 0.5em 1em;
 }
 
-.top_albums ol{
+.top_albums li span, .similar_artists li span{
+  text-align: center;
+  font-family: verdana, helvetica, sans;
+  font-size: 12px;
+}
+
+
+.top_albums{
   margin-left: 10px;
   margin-top: 10px;
   font-size: 14px;
@@ -169,21 +195,21 @@
   line-height: 35px;
 }
 
-#similar_artists ol.table li span.match{
+.similar_artists ol.table li span.match{
   float: left;
   width: 50px;
   line-height: 35px;
   text-align: left;
 }
 
-#similar_artists ol.table li span.match_bar{
+.similar_artists ol.table li span.match_bar{
   float: left;
   height: 35px;
   width: 155px;
   margin-right: 20px;
 }
 
-#similar_artists ol.table li span.match_bar_inner{
+.similar_artists ol.table li span.match_bar_inner{
   display: block;
   height: 11px;
   margin-top: 12px;
@@ -192,44 +218,3 @@
 }
 
 
-#top_albums li span, #similar_artists li span{
-  text-align: center;
-  font-family: verdana, helvetica, sans;
-  font-size: 12px;
-
-}
-
-#artist_info{
-}
-
-#album_info{
-  padding: 0.5em 1em 0.5em 1em;
-}
-
-#album_info h2{
-  margin-bottom: 1em;
-}
-
-#album_info .left_column{
-  float: left;
-}
-
-#album_info .track_listing{
-  float: left;
-  margin-left: 2em;
-  width: 300px;
-}
-#album_info .track_listing ol{
-  list-style-type: decimal;
-}
-
-#album_info .reach_container{
-  width: 130px;
-  padding-bottom: 0.5em;
-  margin-top: 20px;
-} 
-
-#album_info .reach_container .reach{
-  font-family: verdana, helvetica, sans;
-  display: block;
-}

@@ -2,7 +2,6 @@ Utils.namespace("NowPlaying.ui.panels", {
     TopAlbumsPanel : Ext.extend(Ext.Panel, {
        	title: 'Top Albums',
         cls : 'contentpanel',
-        ctCls : 'top_albums',
         width: 160,
         initComponent : function(){
             this.datasource.connect("top_albums", this, "onChange");   
@@ -27,7 +26,7 @@ Utils.namespace("NowPlaying.ui.panels", {
           var max_reach = this.top_albums[0].reach;
           if(!this.albumList){
               this.albumList = document.createElement("ol");
-              this.albumList.setAttribute("class", "top_albums_list");
+              this.albumList.setAttribute("class", "top_albums");
               this.body.appendChild(this.albumList);
           }else{
             this.albumList.innerHTML = ""; 

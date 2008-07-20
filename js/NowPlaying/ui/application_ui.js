@@ -25,8 +25,10 @@ Utils.namespace("NowPlaying.ui", {
           margins: '20 20 0 20',
           activeTab : 0,
           deferredRender : false,
-          items : [new Tabs.ArtistTab({title : "Now Playing", datasource : this.datasource.now_playing_tab }),
-     //              new Tabs.ArtistTab({datasource : datasource2})
+          //plugins : new Ext.ux.TabCloseMenu(),   
+          items : [new Tabs.ArtistTab({title : "Now Playing", 
+                                       datasource : this.datasource.now_playing_tab,
+                                       closable : false }),
                   ]
     });
     
