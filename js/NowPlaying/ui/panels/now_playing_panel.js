@@ -1,24 +1,38 @@
 Utils.namespace("NowPlaying.ui.panels", {    
   NowPlayingPanel : Ext.extend(Ext.Panel, {
       	title: 'Now Playing',
-       	contentEl:'now_playing',
         region:'north',
         height: 120,
-        margins: '20 20 0 20',
         cls : 'contentpanel',
-        //bbar: new Ext.StatusBar(),
+        width: 320,
         initComponent : function(){
-            NowPlaying.ui.NowPlayingPanel.superclass.initComponent.apply(this, arguments);
-            
-            Utils.extend(this, new NowPlaying.ui.DataPanel());         
-            
-            this.panel = this;
-            this.element = this.el;
-            this.linkImage(this.datasource, "avatar", "avatar");
-            this.linkHtml(this.datasource, "track", "track");
-            this.linkHtml(this.datasource, "album", "album", "unknown");
-            this.linkHtml(this.datasource, "artist", "artist");
-            //this.linkStatus(this.datasource);
-       }
+          this.datasource.connect("endUpdate", this, "onChange");
+          NowPlaying.ui.NowPlayingPanel.superclass.initComponent.apply(this, arguments);
+        },
+        onChange : function(data){
+          this.updateContent();
+        },
+        updateContent : function(){
+          var data = { avatar : this.datasource.avatar(),
+                       track : this.datasource.track(),
+                       artist : this.datasource.artist(),
+                       album : this.datasource.album() };
+                       
+          var tpl = new Ext.XTemplate(
+              '<div id="now_playing">' + 
+                '<img class="avatar" src="{avatar}"></img>' + 
+                '<div class="now_playing_body">' + 
+                   '<span class="track">{track}</span>' + 
+                   '<span class="by"> - </span>' + 
+                   '<span class="artist">{artist}</span>' + 
+                   '<div class="album_body">' + 
+                     '<span class="album_title">From the album</span>' +
+                      '<span class="album">{album}</span>' + 
+                   '</div>' + 
+                   '<span class="status"></span>' + 
+                  '</div>' + 
+               '</div>');
+           tpl.overwrite(this.body, data);
+      }
   })
 });

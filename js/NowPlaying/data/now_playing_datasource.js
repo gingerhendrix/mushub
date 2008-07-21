@@ -20,7 +20,10 @@ Utils.namespace("NowPlaying.data", {
     recentTracksDatasource.connect("beginUpdate", this, function(){
        MochiKit.Signal.signal(this, "beginUpdate");    
     });
-    userInfoDatasource.connect("avatar", this, "avatar");    
+    userInfoDatasource.connect("avatar", this, "avatar");
+    userInfoDatasource.connect("endUpdate", this, function(){
+       MochiKit.Signal.signal(this, "endUpdate", this);    
+    });
  }
 });
 
