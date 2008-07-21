@@ -41,7 +41,8 @@ Utils.namespace("NowPlaying.ui", {
                        new Ext.Panel({
                            layout: 'border',
                            region: 'center',
-                           items: [this.infoPanel, this.tabPanel]
+                           items: [ { region : 'north', height: 140, baseCls : '', type : "Ext.Panel", items : [this.infoPanel] },
+                                    this.tabPanel]
               })]
     });
     
