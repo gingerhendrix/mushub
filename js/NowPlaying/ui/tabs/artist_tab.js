@@ -17,13 +17,15 @@ Utils.namespace("NowPlaying.ui.tabs", {
        //var album_info = new UI.AlbumInfoPanel($("album_info"), new Data.AlbumInfoDatasource(this.datasource.now_playing, this.datasource.album_info));
        var artist_info = new Panels.ArtistInfoPanel({datasource : this.datasource.artist_info});
        var artist_links = new Panels.ArtistLinksPanel({datasource : this.datasource.artist_links});
-
+       
+       var torrent_search = new Panels.TorrentSearchPanel({datasource : this.datasource});
+       
        var artistInfoPanel = new Ext.Panel({
           border: false,
          	autoScroll: true,
          	layout : "column",
         	items : [{ border: false, width: 660, items : [ artist_info, similar_artists ] },
-        	         { border: false, width: 200, items : [ artist_links, top_albums ] }
+        	         { border: false, width: 200, items : [ artist_links, torrent_search, top_albums ] }
         	        ]
         });
         

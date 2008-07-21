@@ -1,6 +1,8 @@
 
 Utils.namespace("NowPlaying.data", { 
   ArtistTabDatasource : function(artist, artist_mbid){
+     Utils.extend(this, new NowPlaying.utils.DataBean());
+     
      this.artist = artist;
      this.artist_mbid = artist_mbid;
 
@@ -22,6 +24,8 @@ Utils.namespace("NowPlaying.data", {
        this.artist_links.update();
        this.artist_info.artist_mbid = this.artist_mbid;
        this.artist_info.update();
+       
+       MochiKit.Signal.signal(this, "endUpdate", this);             
      }   
   }
 });

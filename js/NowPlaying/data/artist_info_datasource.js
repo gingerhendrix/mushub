@@ -1,6 +1,7 @@
 
 Utils.namespace("NowPlaying.data", { 
   ArtistInfoDatasource : function(artist, artist_mbid){ 
+    Utils.extend(this, new NowPlaying.utils.DataBean());
     var self = this;
     
     this.artist_name = artist;
@@ -63,6 +64,3 @@ Utils.namespace("NowPlaying.data", {
   
   }
 });
-
-
-NowPlaying.data.ArtistInfoDatasource.prototype = new NowPlaying.utils.DataBean();
