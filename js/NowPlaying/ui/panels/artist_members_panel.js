@@ -1,8 +1,6 @@
 Utils.namespace("NowPlaying.ui.panels", {
   ArtistMembersPanel : Ext.extend(Ext.Panel, {
-    title: '',
-    showTitle : false,
-    baseCls : '',
+    title: 'Related Artists',
     cls : 'contentpanel',
     layout : 'accordion',
     width: 160,
@@ -18,13 +16,35 @@ Utils.namespace("NowPlaying.ui.panels", {
       if(!rels || rels.length == 0){
         return;        
       }
-      var groups = {};
+      var groups = { "MemberOfBand-backward" : { displayName : "Band Members", members : [] },
+                     "MemberOfBand-both" : { displayName : "Member of Band", members : [] },
+                     "Collaboration-both" : {displayName : "Collaborations", members : [] },
+                     "Collaboration-backward" : {displayName : "Collaborations", members : [] }
+                    };
+      var groupKeys = ["MemberOfBand-backward", "MemberOfBand-both", "Collaboration-both", "Collaboration-backward"];
+      
       for(var i=0; i< rels.length; i++){
-        if(!groups[rels[i].type]) groups[rels[i].type] = []
-        groups[rels[i].type].push(rels[i]);
+        var rel = rels[i];
+        var key = rel.type + "-" + rel.direction;
+        var group = groups[key];
+        if(!group){
+           console.log("Creating new key " + key);
+           groups[key] = {
+              displayName : rel.type,
+              members : []
+            }
+            group = groups[key];
+            groupKeys.push(key);
+        }
+        group.members.push(rel);
       }
-      for(var group in groups){
-        this.addSubPanel(group, groups[group]) 
+      
+      for(var j=0; j< groupKeys.length; j++){
+        var group = groups[groupKeys[j]];
+        if(!group){ alert("Group " + groupKeys[j] + " not defined"); return;  };
+        if(group.members.length > 0){
+          this.addSubPanel(group.displayName, group.members) 
+        }
       }
       this.doLayout();
     },

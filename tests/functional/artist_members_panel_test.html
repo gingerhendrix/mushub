@@ -1,0 +1,46 @@
+<html>
+<head>
+
+    <link rel="stylesheet" href="../../css/nowplaying.css"/>
+    <link rel="stylesheet" href="../../css/ext-all.css"/> 
+
+    <script src="../../js/MochiKit/MochiKit.js"></script>
+
+    <script src="../../js/Ext/ext-base.js"></script>
+    <script src="../../js/Ext/ext-all.js"></script>
+    
+    <script src="../../js/jsUtils.js"></script>
+    <script src="../../js/sendJSONPRequest.js"></script>
+
+    <script src="../../js/NowPlaying/utils/databean.js"></script>
+    
+    <script src="../../js/NowPlaying/data/webservice.js"></script>
+    <script src="../../js/NowPlaying/data/datasource.js"></script>
+    <script src="../../js/NowPlaying/data/musicbrainz/artist_members_datasource.js"></script>
+    
+    <script src="../../js/NowPlaying/ui/panels/artist_members_panel.js"></script>
+    
+    <script src="../../js/config/config.development.js"></script>
+    
+    <script>
+      var data = new NowPlaying.data.musicbrainz.ArtistMembersDatasource();
+      data.artist_mbid = "172aab84-4c01-4dc0-b2ad-e723033e10ec";
+      var panel = new NowPlaying.ui.panels.ArtistMembersPanel({ datasource : data });
+      data.update();
+          
+      new Ext.Viewport({
+        layout : 'fit',
+        items : [{
+           items : [panel]        
+        }]
+      
+      });
+    
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>  
+
