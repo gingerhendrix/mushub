@@ -1,0 +1,34 @@
+
+.now_playing_panel{
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  float: left;
+}
+
+.now_playing{
+  padding: 0 1em 0 1em;
+}
+
+.now_playing img.avatar{
+  float: left;
+  width: 70px;
+  height: 70px;
+}
+
+.now_playing_body{
+  float: left;
+  margin-top: 20px;
+  width: 210px;
+}
+
+.now_playing_body h3{
+   color : #15428B;
+   font-family: tahoma, arial, verdana, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+}
+
+.now_playing_body .track, .now_playing_body .artist, .now_playing_body .by{
+  font-size: 14px;
+}

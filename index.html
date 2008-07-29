@@ -27,16 +27,24 @@
                                                "album_info_datasource",
                                                "top_albums_datasource",
                                                "similar_artists_datasource"]);
-          loadLibrary("data/musicbrainz", ["artist_urls_datasource"]);
+          loadLibrary("data/musicbrainz", ["artist_urls_datasource",
+                                           "artist_members_datasource", 
+                                          "artist_search_datasource"]);
+                                          
           loadLibrary("data/wikipedia", ["wikipedia_datasource"]);
 
-          loadLibrary("data", ["application_datasource", "now_playing_datasource", "album_info_datasource", "artist_info_datasource", "artist_tab_datasource"]);
+          loadLibrary("data", ["application_datasource", 
+                               "now_playing_datasource",
+                               "album_info_datasource",
+                               "artist_info_datasource",
+                               "artist_tab_datasource"]);
 
           loadLibrary("ui", ["bar_chart"]);
 
           loadLibrary("utils",["data_panel"]);  
              
           loadLibrary("ui/panels", ["content_panel",
+                                    "search_panel",
                                     "now_playing_panel",
                                     "top_albums_panel",
                                     "similar_artists_panel",
@@ -44,7 +52,8 @@
                                     "artist_info_panel",
                                     "username_panel",
                                     "artist_links_panel",
-                                    "torrent_search_panel"]);
+                                    "torrent_search_panel",
+                                    "artist_members_panel"]);
                                     
           loadLibrary("ui/tabs", ["artist_tab"]);
 

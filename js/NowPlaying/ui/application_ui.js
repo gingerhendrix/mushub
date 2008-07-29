@@ -17,6 +17,8 @@ Utils.namespace("NowPlaying.ui", {
      
     this.infoPanel = new Panels.NowPlayingPanel({datasource : datasource.now_playing});        
     
+    this.searchPanel = new Panels.SearchPanel();
+    
   //  var datasource1 = new Data.ArtistTabDatasource("Twisted Sister", "c6122fee-089f-41c4-a34f-e5f7e5607b05");
   //  var datasource2 = new Data.ArtistTabDatasource("The Flower Kings", "0a389268-6fd8-4f8c-ab6e-0dba5ecec66b");
     
@@ -41,7 +43,7 @@ Utils.namespace("NowPlaying.ui", {
                        new Ext.Panel({
                            layout: 'border',
                            region: 'center',
-                           items: [ { region : 'north', height: 140, baseCls : '', type : "Ext.Panel", items : [this.infoPanel] },
+                           items: [ { region : 'north', height: 140, baseCls : '', type : "Ext.Panel", items : [this.searchPanel, this.infoPanel] },
                                     this.tabPanel]
               })]
     });

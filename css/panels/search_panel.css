@@ -1,0 +1,64 @@
+
+.search_panel{
+ margin-top: 30px;
+ margin-left: 20px;
+ margin-right: 20px;
+ float: left;
+}
+
+.search_panel .artist_search{
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+.search_panel .search_form input[type='text']{
+  font-size: 18px;
+  padding-top: 6px;
+  line-height: 30px;
+  height: 36px;
+  width: 400px;
+  margin-right: 20px;
+}
+
+.search_panel .search_results{
+  margin-left: 15px;
+  margin-top: 10px;
+  width: 600px;
+}
+
+.search_panel .search_results span.title{
+   color : #15428B;
+   font-family: tahoma, arial, verdana, sans-serif;
+   font-size: 11px;
+   font-weight: bold;
+}
+
+.search_panel .search_results ol{
+  margin-left: 15px;
+}
+
+.search_panel .search_results li{
+  float: left;
+  list-style: 'circle'
+  width: 90px;
+  display: block;
+  margin-right: 10px;
+  color: #000000;
+  text-decoration: none;
+  font-family: verdana, helvetica, sans;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.search_panel .search_results li .score{
+   font-size: 9px;
+   margin-top: 3px;
+   color : #15428B;
+   padding-left: 1px;
+}
+
+
+.search_panel .search_results li:hover{
+  text-decoration: underline;
+}
+

@@ -1,6 +1,7 @@
 Utils.namespace("NowPlaying.ui.panels", {
   SearchPanel : Ext.extend(Ext.Panel, {
-    title: 'Search',
+    title: '',
+    baseCls: '',
     cls : 'search_panel',
     width: 640,
     height: 140,

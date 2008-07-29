@@ -23,7 +23,7 @@ Utils.namespace("NowPlaying.ui.panels", {
             this.body.innerHTML = "Data not loaded";
             return;
           }
-          var max_reach = this.top_albums[0].reach;
+          var max_reach = this.top_albums[0] ? this.top_albums[0].reach : 0;
           if(!this.albumList){
               this.albumList = document.createElement("ol");
               this.albumList.setAttribute("class", "top_albums");
