@@ -12,10 +12,14 @@ Utils.namespace("NowPlaying.ui.panels", {
     
     onUpdate : function(data){
       this.results =  this.datasource.search_results();
+      this.searchInput.disabled = false;
+      this.loadingEl.style.visibility = "hidden";
       this.updateContent();
     },
     
     onSearch : function(query){
+      this.searchInput.disabled = true;
+      this.loadingEl.style.visibility = "visible";
       this.datasource = new NowPlaying.data.musicbrainz.ArtistSearchDatasource();
       this.datasource.query = query;
       this.datasource.connect("endUpdate", this, "onUpdate");
@@ -36,18 +40,29 @@ Utils.namespace("NowPlaying.ui.panels", {
          this.searchEl = document.createElement("div");
          this.searchEl.setAttribute("class", "search_form");
          
-         var input = document.createElement("input");
-         input.setAttribute("type", "text");
-         this.searchEl.appendChild(input);
+         this.searchInput = document.createElement("input");
+         this.searchInput.setAttribute("value", "Search for an Artist");
+         this.searchInput.setAttribute("class", "default");
+         var defaultListener = function(){
+            this.setAttribute("class", "");
+            this.value = "";
+            this.removeEventListener("focus", defaultListener, false);  
+         };
+         this.searchInput.addEventListener("focus", defaultListener, false);  
          
-         var button = document.createElement("input");
-         button.setAttribute("type", "button");
-         button.setAttribute("value", "Search");
-         button.addEventListener("click", function(){
-            self.onSearch(input.value);
+         this.searchInput.setAttribute("type", "text");
+         this.searchInput.addEventListener("change", function(){
+            self.onSearch(this.value);
          }, false);
-         this.searchEl.appendChild(button);
+         this.searchEl.appendChild(this.searchInput);
          
+         this.loadingEl = document.createElement("img");
+         this.loadingEl.setAttribute("src", "images/custom/loading.gif");
+         this.loadingEl.setAttribute("width", 18);
+         this.loadingEl.setAttribute("height", 18);
+          this.searchEl.appendChild(this.loadingEl);
+         this.loadingEl.style.visibility = "hidden";
+        
         this.contentEl.appendChild(this.searchEl);
       }
       if(!this.resultsEl){
