@@ -10,11 +10,11 @@ Utils.namespace("NowPlaying.ui", {
     var appUI = Utils.namespace("NowPlaying.Application.ui");
     var appData = NowPlaying.Application.data;
      
-    this.topbar = new Panels.UsernamePanel({
+   /* this.topbar = new Panels.UsernamePanel({
           region:'north',
         	width: 800,
     });  
-     
+     */
     this.infoPanel = new Panels.UserInfoPanel({datasource : datasource.now_playing});        
     
     this.searchPanel = new Panels.SearchPanel();
@@ -38,12 +38,11 @@ Utils.namespace("NowPlaying.ui", {
    // datasource2.update();
     
     this.viewport = new Ext.Viewport({
-               layout:'border',
-               items:  [this.topbar, 
-                         new Ext.Panel({
+               layout : 'border',
+               items:  [new Ext.Panel({
                            layout: 'border',
                            region : 'center',
-                           items: [ { region : 'north', height: 140, width: 960, baseCls : '', type : "Ext.Panel", items : [this.searchPanel, this.infoPanel] },
+                           items: [ { region : 'north', height: 140, baseCls : '', type : "Ext.Panel", items : [this.searchPanel, this.infoPanel] },
                                     this.tabPanel
                                   ]
                          })

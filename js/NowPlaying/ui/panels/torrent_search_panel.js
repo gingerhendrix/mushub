@@ -1,8 +1,7 @@
 Utils.namespace("NowPlaying.ui.panels", {
   TorrentSearchPanel : Ext.extend(Ext.Panel, {
     title: 'Torrent Search',
-    cls : 'contentpanel',
-    width: 160,
+    autoHeight : true,
     initComponent : function(){
        this.datasource.connect("endUpdate", this, "onUpdate");
        NowPlaying.ui.panels.TorrentSearchPanel.superclass.initComponent.apply(this, arguments);
@@ -29,6 +28,7 @@ Utils.namespace("NowPlaying.ui.panels", {
       for(var i=0; i< urls.length; i++){
         var li = document.createElement("li");
         var a = document.createElement("a");
+        a.setAttribute("target", "_new");
         a.setAttribute("href", urls[i].href);
         a.innerHTML =  urls[i].title;
         li.appendChild(a);
