@@ -15,7 +15,7 @@ Utils.namespace("NowPlaying.ui", {
         	width: 800,
     });  
      
-    this.infoPanel = new Panels.NowPlayingPanel({datasource : datasource.now_playing});        
+    this.infoPanel = new Panels.UserInfoPanel({datasource : datasource.now_playing});        
     
     this.searchPanel = new Panels.SearchPanel();
     
@@ -39,13 +39,15 @@ Utils.namespace("NowPlaying.ui", {
     
     this.viewport = new Ext.Viewport({
                layout:'border',
-               items: [this.topbar, 
-                       new Ext.Panel({
+               items:  [this.topbar, 
+                         new Ext.Panel({
                            layout: 'border',
-                           region: 'center',
-                           items: [ { region : 'north', height: 140, baseCls : '', type : "Ext.Panel", items : [this.searchPanel, this.infoPanel] },
-                                    this.tabPanel]
-              })]
+                           region : 'center',
+                           items: [ { region : 'north', height: 140, width: 960, baseCls : '', type : "Ext.Panel", items : [this.searchPanel, this.infoPanel] },
+                                    this.tabPanel
+                                  ]
+                         })
+                      ]
     });
     
     this.openArtistTab = function(artist_name, artist_mbid){

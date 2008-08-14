@@ -1,14 +1,12 @@
 Utils.namespace("NowPlaying.ui.panels", {    
-  NowPlayingPanel : Ext.extend(Ext.Panel, {
+  UserInfoPanel : Ext.extend(Ext.Panel, {
       	title: 'User Info',
         height: 120,
-        cls : 'now_playing_panel',
-        //margins:  '50 50 50 50',
-        //cmargins:  '50 50 50 50',
         width: 320,
+        cls : 'now_playing_panel',
         initComponent : function(){
           this.datasource.connect("endUpdate", this, "onChange");
-          NowPlaying.ui.NowPlayingPanel.superclass.initComponent.apply(this, arguments);
+          NowPlaying.ui.UserInfoPanel.superclass.initComponent.apply(this, arguments);
         },
         onChange : function(data){
           this.updateContent();
