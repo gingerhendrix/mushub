@@ -18,6 +18,7 @@ Utils.namespace("NowPlaying.data", {
     this.update = function(){
       console.log("Datasource.update : %o ", this);
       MochiKit.Signal.signal(this, "beginUpdate");
+      this.isLoading = true;
       try{
         params = makeParams(this, config.params);
       }catch(e){
@@ -28,10 +29,15 @@ Utils.namespace("NowPlaying.data", {
       var self = this;
       d.addCallback(function(response){
           console.log("Datasource[anonymous callback] : %o : %o", self, response);
+          self.isLoading = false;    
+          self.isError = false;
           self.onUpdate(response);
           MochiKit.Signal.signal(self, "endUpdate");
       });
       d.addErrback(function(response){
+        self.isError = true;
+        MochiKit.Signal.signal(self, "onError");
+        //self.onUpdate(response);
         console.error("Datasource[anon errback] : %o : %o", self, response);
       });
       return d;

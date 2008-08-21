@@ -5,6 +5,7 @@ Utils.namespace("NowPlaying.ui.panels", {
     ctCls : 'artist_wikipedia',
     width: 640,
     initComponent : function(){
+      this.datasource.connect("beginUpdate", this, "onChange");
       this.datasource.connect("endUpdate", this, "onChange");
       NowPlaying.ui.panels.ArtistInfoPanel.superclass.initComponent.apply(this, arguments);
     },
@@ -18,6 +19,17 @@ Utils.namespace("NowPlaying.ui.panels", {
          return;
       }
       var self = this;
+      if(this.datasource.isLoading ){
+        this.contentEl = null;
+        this.body.innerHTML = "Loading...";
+        return;
+      }
+      if( this.datasource.isError ){
+        this.contentEl = null;
+        this.body.innerHTML = "Error Loading Data :(";
+        return;
+      }
+
       if( !this.datasource.wikipedia_content() ){
         this.body.innerHTML = "Data not loaded";
         return;

@@ -3,7 +3,7 @@ Utils.namespace("NowPlaying.ui.panels", {
     title: 'Musicbrainz Links',
     autoHeight : true,
     initComponent : function(){
-      alert("mlp ds " + this.datasource);
+      this.datasource.connect("beginUpdate", this, "onChange");
       this.datasource.connect("endUpdate", this, "onChange");
       NowPlaying.ui.panels.MusicbrainzLinksPanel.superclass.initComponent.apply(this, arguments);
     },
@@ -18,6 +18,10 @@ Utils.namespace("NowPlaying.ui.panels", {
         this.contentEl = document.createElement("ul");
         this.contentEl.setAttribute("class", "artist_links");
         this.body.appendChild(this.contentEl);
+      }
+      if(this.datasource.isLoading){
+        this.contentEl.innerHTML = "Loading";
+        return;
       }
       this.contentEl.innerHTML = "";
       var urls = this.datasource.artist_urls();

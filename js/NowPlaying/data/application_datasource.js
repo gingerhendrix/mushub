@@ -20,9 +20,16 @@ Utils.namespace("NowPlaying.data", {
         }, 30000);
 
         
-        this.user_info = new Data.UserInfoDatasource(username);
+        this.user_info = new AS.UserInfoDatasource(username);
         
         this.now_playing = new Data.NowPlayingDatasource(this.recent_tracks, this.user_info);
+        
+        this.user_info.connect("onError", function(){ self.onError() } );
+        this.recent_tracks.connect("onError", function(){ self.onError() } );
+        
+        this.onError = function(){
+          alert("Error!");
+        }
         
         this.now_playing_tab = new Data.ArtistTabDatasource();
         this.now_playing.connect("endUpdate", 
