@@ -10,20 +10,23 @@ Utils.namespace("NowPlaying.data", {
     this.makeProp("artist");  
     this.makeProp("wikipedia_url");
     this.makeProp("wikipedia_content");
+    
+    this.isLoading = false;
+    this.isError = false;
   
     this.onUrlChange = function(urls){
-      var self = this;
-      var found = false;
+     var found = false;
       urls.forEach(function(link){
-        if(link.rel == "Wikipedia"){
+        if(link.rel == "Wikipedia" && !found){
           self.wikipedia_url(link.href);
           self.updateWikipedia(link.href);
           found = true;
         }
       });
       if(!found){
-        MochiKit.Signal.signal(this, "endUpdate");
-        MochiKit.Signal.signal(this, "error", "No wikipedia page found");        
+        this.isLoading = false;
+        this.isError = true;
+        MochiKit.Signal.signal(this, "error", "Wikipedia page not found");        
       }
       
     }
@@ -31,35 +34,46 @@ Utils.namespace("NowPlaying.data", {
     this.updateMusicbrainz = function(artist_mbid){
       urlDatasource.artist_mbid = artist_mbid;
       if(MochiKit.Base.isUndefinedOrNull(artist_mbid)){
-        MochiKit.Signal.signal(this, "endUpdate");
+        this.isLoading = false;
+        this.isError = true;
         MochiKit.Signal.signal(this, "error", "Musicbrainz id not found");        
       }else{
-        MochiKit.Signal.signal(this, "beginUpdate");    
         urlDatasource.update();       
       }
     }
     
     this.updateWikipedia = function(url){
       wpDatasource.url = url;
-      MochiKit.Signal.signal(this, "beginUpdate");    
       wpDatasource.update();
     }
     
+    this.onWikipediaUpdate = function(){
+     
+      this.wikipedia_content(wpDatasource.wikipedia_content());
+      this.isError = false;
+      this.isLoading = false;
+
+      MochiKit.Signal.signal(this, "endUpdate");    
+    }
+    
+    this.onError = function(error){
+      this.isError = true;
+      MochiKit.Signal.signal(this, "error", error);        
+    }
+    
     this.update = function(){
+      this.isLoading = true;
       this.updateMusicbrainz(this.artist_mbid);
+      MochiKit.Signal.signal(this, "beginUpdate");    
     }
     
     urlDatasource = new NowPlaying.data.musicbrainz.ArtistUrlsDatasource();
-    urlDatasource.connect("artist_urls", this, "onUrlChange");
     wpDatasource = new NowPlaying.data.wikipedia.WikipediaDatasource();
-    wpDatasource.connect("wikipedia_content", this, "wikipedia_content");
+    urlDatasource.connect("artist_urls", this, "onUrlChange");
+    wpDatasource.connect("endUpdate", this, "onWikipediaUpdate");
     
-    [wpDatasource].forEach(function(ds){ 
-        ds.connect("endUpdate", 
-                  self, 
-                  function(){
-                     MochiKit.Signal.signal(self, "endUpdate");    
-                   });
+    [urlDatasource, wpDatasource].forEach(function(ds){
+        ds.connect("onError", self, "onError");
     });
   
   }

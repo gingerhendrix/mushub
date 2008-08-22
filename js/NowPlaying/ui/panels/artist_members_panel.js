@@ -16,6 +16,11 @@ Utils.namespace("NowPlaying.ui.panels", {
       if(!rels || rels.length == 0){
         return;        
       }
+      if(this.datasource.isLoading && this.body){
+        this.items.clear();
+        this.body.innerHTML = "Loading";
+        return;
+      }
       var groups = { "MemberOfBand-backward" : { displayName : "Band Members", members : [] },
                      "MemberOfBand-both" : { displayName : "Member of Band", members : [] },
                      "Collaboration-both" : {displayName : "Collaborations", members : [] },

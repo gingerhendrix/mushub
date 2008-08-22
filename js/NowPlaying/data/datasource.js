@@ -31,12 +31,17 @@ Utils.namespace("NowPlaying.data", {
           console.log("Datasource[anonymous callback] : %o : %o", self, response);
           self.isLoading = false;    
           self.isError = false;
-          self.onUpdate(response);
-          MochiKit.Signal.signal(self, "endUpdate");
+          if(response.error){
+            self.isError = true;
+            MochiKit.Signal.signal(self, "onError", response.error);
+          }else{
+            self.onUpdate(response);
+            MochiKit.Signal.signal(self, "endUpdate");
+          }
       });
       d.addErrback(function(response){
         self.isError = true;
-        MochiKit.Signal.signal(self, "onError");
+        MochiKit.Signal.signal(self, "onError", response);
         //self.onUpdate(response);
         console.error("Datasource[anon errback] : %o : %o", self, response);
       });
