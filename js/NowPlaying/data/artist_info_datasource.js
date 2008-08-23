@@ -15,15 +15,26 @@ Utils.namespace("NowPlaying.data", {
     this.isError = false;
   
     this.onUrlChange = function(urls){
-     var found = false;
+     var wikipedia_urls = [];
       urls.forEach(function(link){
-        if(link.rel == "Wikipedia" && !found){
-          self.wikipedia_url(link.href);
-          self.updateWikipedia(link.href);
-          found = true;
+        if(link.rel == "Wikipedia"){
+          wikipedia_urls.push(link.href);
         }
       });
-      if(!found){
+      if(wikipedia_urls.length > 0){
+        var foundEn = false;
+        wikipedia_urls.forEach(function(url){
+           if(url.indexOf("en.wikipedia.org")>=0){
+             foundEn = true;
+             self.wikipedia_url(url);
+             self.updateWikipedia(url);
+          }
+        });
+        if(!foundEn){
+          self.wikipedia_url(wikipedia_urls[0]);
+          self.updateWikipedia(wikipedia_urls[0]);
+        }
+      }else{
         this.isLoading = false;
         this.isError = true;
         MochiKit.Signal.signal(this, "error", "Wikipedia page not found");        
