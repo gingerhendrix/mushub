@@ -37,6 +37,13 @@ Utils.namespace("NowPlaying.ui.panels", {
         a.setAttribute("target", "_new");
         a.setAttribute("href", urls[i].href);
         a.innerHTML = urls[i].rel;
+        if(urls[i].rel == "Wikipedia"){
+          var countryMatch =(new RegExp("http://([A-Za-z]*).wikipedia.org")).exec(urls[i].href);
+          if(countryMatch){
+            var country = countryMatch[1];
+            a.innerHTML = urls[i].rel + " ["+country+"]";
+          } 
+        }
         li.appendChild(a);
         this.contentEl.appendChild(li);
       }
