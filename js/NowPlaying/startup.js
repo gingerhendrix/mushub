@@ -4,10 +4,10 @@ Utils.extend(NowPlaying.Application, (function(){
       var started = false;
       
       window.addEventListener("load", function(){
+         initialiseDatasources();
+         initialiseUI();
          if(window.location.hash.length > 1){
             updateUsername(window.location.hash.substring(1));
-         }else{
-          showStart();
          }
       }, false); 
       
@@ -25,8 +25,8 @@ Utils.extend(NowPlaying.Application, (function(){
                 
        **/
   
-      function initialiseDatasources(username){
-        NowPlaying.Application.data = new NowPlaying.data.ApplicationDatasource(username);
+      function initialiseDatasources(){
+        NowPlaying.Application.data = new NowPlaying.data.ApplicationDatasource();
       }      
       
       function initialiseUI(){
@@ -34,29 +34,10 @@ Utils.extend(NowPlaying.Application, (function(){
       }
       
       function updateUsername(username){
-        if(!started){
-          showMain(); 
-        }
-        $("username").value = username;
         window.location.hash = "#" + username;
-
-        initialiseDatasources(username);
-        initialiseUI();
-
-        NowPlaying.Application.data.recent_tracks.update();
-        NowPlaying.Application.data.user_info.update();
+        NowPlaying.Application.data.user.username(username);
       }
-      
-      function showStart(){
-        //$('main').style.display = "none";
-        $('start').style.display = "block";
-      }
-      
-      function showMain(){
-       $('start').style.display = "none";
-       //$('main').style.display = "block";
-      }
-      
+           
  
   return {
       updateUsername : updateUsername,

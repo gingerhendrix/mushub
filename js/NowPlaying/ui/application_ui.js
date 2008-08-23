@@ -16,7 +16,7 @@ Utils.namespace("NowPlaying.ui", {
         	width: 800,
     });  
      */
-    this.infoPanel = new Panels.UserInfoPanel({datasource : datasource.now_playing});        
+    this.userPanel = new Panels.UserPanel({datasource : datasource.user});        
     
     this.searchPanel = new Panels.SearchPanel();
     
@@ -28,7 +28,6 @@ Utils.namespace("NowPlaying.ui", {
           margins: '20 20 0 20',
           activeTab : 0,
           deferredRender : false,
-          //plugins : new Ext.ux.TabCloseMenu(),   
           items : [new Tabs.ArtistTab({title : "Now Playing", 
                                        datasource : this.datasource.now_playing_tab,
                                        closable : false }),
@@ -43,7 +42,7 @@ Utils.namespace("NowPlaying.ui", {
                items:  [new Ext.Panel({
                            layout: 'border',
                            region : 'center',
-                           items: [ { region : 'north', height: 140, baseCls : '', type : "Ext.Panel", items : [this.searchPanel, this.infoPanel] },
+                           items: [ { region : 'north', height: 140, baseCls : '', type : "Ext.Panel", items : [this.searchPanel, this.userPanel] },
                                     this.tabPanel
                                   ]
                          })

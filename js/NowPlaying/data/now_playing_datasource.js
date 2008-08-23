@@ -1,6 +1,7 @@
 
 Utils.namespace("NowPlaying.data", { 
   NowPlayingDatasource : function (recentTracksDatasource, userInfoDatasource){
+    Utils.extend(this, new NowPlaying.utils.DataBean());
     this.makeProp("album");
     this.makeProp("track");
     this.makeProp("artist");
@@ -27,4 +28,4 @@ Utils.namespace("NowPlaying.data", {
  }
 });
 
-NowPlaying.data.NowPlayingDatasource.prototype = new NowPlaying.utils.DataBean();
+

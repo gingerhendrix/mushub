@@ -1,9 +1,12 @@
 Utils.namespace("NowPlaying.utils", {
  DataBean : function(){
     this.properties = {};
-    console.log("New Databean %o", this);
     this.connect = function(name, obj, method){
       MochiKit.Signal.connect(this, name, obj, method);
+    }
+    this.signal = function(name, val){
+      console.log("Signal %o, %s, %o", this, name, val);
+      MochiKit.Signal.signal(this, name, val);
     }
     
     this.makeProp = function(prop){
@@ -11,7 +14,7 @@ Utils.namespace("NowPlaying.utils", {
       this[prop] = function(val){
         if(arguments.length > 0 && (MochiKit.Base.isUndefinedOrNull(val) || val != this.properties[prop]) ){
           this.properties[prop] = val;
-          MochiKit.Signal.signal(this, prop, val);              
+          this.signal(prop, val);              
         }
         return this.properties[prop];
       }

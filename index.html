@@ -37,7 +37,8 @@
                                "now_playing_datasource",
                                "album_info_datasource",
                                "artist_info_datasource",
-                               "artist_tab_datasource"]);
+                               "artist_tab_datasource",
+                               "user_datasource"]);
 
           loadLibrary("ui", ["bar_chart"]);
 
@@ -54,7 +55,9 @@
                                     "top_albums_panel",
                                     "torrent_search_panel",
                                     "user_info_panel",
-                                    "username_panel" ]);
+                                    "user_login_panel",
+                                    "user_panel"
+                                     ]);
           
           loadLibrary("ui/windows", ["album_info_window"]);                        
           
@@ -90,71 +93,8 @@
     </script>
   
   </head>
-    <style>
-      body{
-        margin: 0px;
-      }
-      input[type='text']{
-        padding-left: 0.5em;
-      }
-      
-      
-      #start{
-        width: 100%;
-        text-align: center;
-        padding-top: 10%;
-        height: 100%;
-        background-color: #3333aa;      
-      }
-      
-      #start label{
-        font-family: helvetica;
-        font-weight: normal;
-        font-size: 24pt;
-        padding-right: 0.5em;
-        color: #000000;
-      }
-      
-      #start input{
-        font-family: tahoma, times, serif;
-        font-weight: normal;
-        font-size: 24pt;
-      }
-      
-      #start_username{
-        padding-left: 0.5em;
-        color: #D01F3C;
-      }
-      #start input.button{
-        margin-left: 0.5em;
-      }
-       #album_info.error .track_listing, #album_info.error .album_image,  #album_info.error .reach_container{
-         display : none;
-       }
 
-      
-      #album_info.error .track_listing, #album_info.error .album_image,  #album_info.error .reach_container{
-        display : none;
-      }
-      
-    </style>
   <body>
-  
-  <div id="start" style="display: none">
-       <div class="username_input" >
-          <label>last.fm username</label>
-          <input type="text" id="start_username"></input>
-          <input class="button" type="button" onclick="NowPlaying.Application.updateUsername($('start_username').value);" value="Go"></input>  
-       </div>
-  </div>
-
-
-
-    <div id="username_input" >
-        <label>last.fm username</label>
-        <input type="text" id="username"></input>
-        <input type="button" onclick="NowPlaying.Application.updateUsername($('username').value);" value="Go"></input>
-    </div>
 
   </body>
   
