@@ -39,6 +39,10 @@ Utils.namespace("NowPlaying.ui.panels", {
             album_img.src = album.image_large;
             album_img.width = 130;
             album_img.height = 130;
+            album_img.style.cursor = "pointer";
+            album_img.addEventListener("click", function(){
+              NowPlaying.Application.ui.openAlbumWindow(album.artist, album.name, album.mbid);
+            }, false);
             var album_label = document.createElement("span");
             album_label.innerHTML = album.name + " (" + Math.round(100*(album.reach/max_reach)) + "%)";
             album_li.appendChild(album_img);

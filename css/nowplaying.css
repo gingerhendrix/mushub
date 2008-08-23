@@ -8,6 +8,8 @@
 @import url(panels/torrent_search_panel.css);
 @import url(panels/wikipedia_panel.css);
 
+@import url(windows/album_info_window.css);
+
 .contentpanel{
   margin: 0.5em !important;
 }

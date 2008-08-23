@@ -5,6 +5,7 @@ Utils.namespace("NowPlaying.ui", {
     var UI = NowPlaying.ui;
     var Panels = UI.panels;
     var Tabs = UI.tabs;
+    var Windows = UI.windows;
     
     var Data = NowPlaying.data;
     var appUI = Utils.namespace("NowPlaying.Application.ui");
@@ -50,14 +51,21 @@ Utils.namespace("NowPlaying.ui", {
     });
     
     this.openArtistTab = function(artist_name, artist_mbid){
-        var datasource = new Data.ArtistTabDatasource(artist_name, artist_mbid);
-        console.log("datasource: %o", datasource);
-        var tab = new Tabs.ArtistTab({title: artist_name, datasource : datasource });
-        this.tabPanel.add(tab);
-        this.tabPanel.activate(tab);
-        this.tabPanel.doLayout();
-        datasource.update();
-      }
-
+      var datasource = new Data.ArtistTabDatasource(artist_name, artist_mbid);
+      console.log("datasource: %o", datasource);
+      var tab = new Tabs.ArtistTab({title: artist_name, datasource : datasource });
+      this.tabPanel.add(tab);
+      this.tabPanel.activate(tab);
+      this.tabPanel.doLayout();
+      datasource.update();
+    }
+    
+    this.openAlbumWindow = function(artist, album, mbid){
+      var datasource = new Data.audioscrobbler.AlbumInfoDatasource(artist, album);
+      var window = new Windows.AlbumInfoWindow({title : album, datasource : datasource, modal : false});
+      //this.tabPanel.getActiveTab().add(window);
+      datasource.update();
+      window.show();
+    }
   }
 });
