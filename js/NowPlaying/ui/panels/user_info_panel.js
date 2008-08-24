@@ -16,22 +16,43 @@ Utils.namespace("NowPlaying.ui.panels", {
           if(!this.body){
             return;
           }
-          var data = { avatar : this.datasource.avatar(),
-                       track : this.datasource.track(),
-                       artist : this.datasource.artist(),
-                       album : this.datasource.album() };
-                       
-          var tpl = new Ext.XTemplate(
-              '<div class="user_info">' + 
-                '<img class="avatar" src="{avatar}"></img>' + 
-                '<div class="now_playing_body">' + 
-                   '<h3>Last played</h3>' + 
-                     '<span class="track">{track}</span>' + 
-                     '<span class="by"> - </span>' + 
-                     '<span class="artist">{artist}</span>' + 
-                '</div>' + 
-              '</div>');
-           tpl.overwrite(this.body, data);
+          
+          if(!this.contentEl){
+            this.contentEl = document.createElement("div");
+            this.contentEl.setAttribute("class", "user_info");
+            this.body.appendChild(this.contentEl);
+          }
+          
+          this.contentEl.innerHTML = "";
+
+          var img = document.createElement("img");
+          img.setAttribute("class", "avatar");
+          img.setAttribute("src", this.datasource.avatar());
+          this.contentEl.appendChild(img);
+
+          var now_playing = document.createElement("div");
+          now_playing.setAttribute("class", "now_playing_body");
+
+          var header = document.createElement("h3");
+          header.innerHTML = "Recently Scrobbled";
+          now_playing.appendChild(header);
+          
+          var track = document.createElement("span");
+          track.setAttribute("class", "track");
+          track.innerHTML = this.datasource.track() || "";
+          now_playing.appendChild(track);
+   
+          var artist = document.createElement("span");
+          artist.setAttribute("class", "artist");
+          artist.innerHTML = this.datasource.artist() || "";
+          var artist_name = this.datasource.artist();
+          var artist_mbid = this.datasource.artist_mbid();          
+          artist.addEventListener("click", function(){
+              NowPlaying.Application.ui.openArtistTab(artist_name, artist_mbid);
+          }, false);
+          now_playing.appendChild(artist);
+          
+          this.contentEl.appendChild(now_playing);
       }
   })
 });

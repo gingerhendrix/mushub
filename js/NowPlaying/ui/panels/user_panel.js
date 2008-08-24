@@ -16,7 +16,7 @@ Utils.namespace("NowPlaying.ui.panels", {
         }
         if(this.datasource.username()){
           this.subPanel = new NowPlaying.ui.panels.UserInfoPanel({datasource : this.datasource.now_playing})
-          this.setTitle("User Info");
+          this.setTitle("User Info " + this.datasource.username());
           this.add(this.subPanel);
         }else{
           this.subPanel = new NowPlaying.ui.panels.UserLoginPanel({datasource : this.datasource});
