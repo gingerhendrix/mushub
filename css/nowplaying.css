@@ -12,6 +12,7 @@
 @import url(panels/user_info_panel.css);
 
 @import url(windows/album_info_window.css);
+@import url(windows/recent_tracks_window.css);
 
 .contentpanel{
   margin: 0.5em !important;

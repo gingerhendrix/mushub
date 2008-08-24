@@ -35,6 +35,9 @@ Utils.namespace("NowPlaying.ui.panels", {
 
           var header = document.createElement("h3");
           header.innerHTML = "Recently Scrobbled";
+          header.addEventListener("click", function(){
+             NowPlaying.Application.ui.openRecentTracksWindow();
+          }, false);
           now_playing.appendChild(header);
           
           var track = document.createElement("span");

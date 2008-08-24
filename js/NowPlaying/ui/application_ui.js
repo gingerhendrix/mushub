@@ -66,5 +66,11 @@ Utils.namespace("NowPlaying.ui", {
       datasource.update();
       window.show();
     }
+    
+    this.openRecentTracksWindow = function(){
+      var datasource = this.datasource.user.recent_tracks;
+      var window = new Windows.RecentTracksWindow({datasource: datasource});
+      window.show();
+    }
   }
 });

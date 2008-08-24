@@ -31,6 +31,11 @@
    font-family: tahoma, arial, verdana, sans-serif;
    font-size: 11px;
    font-weight: bold;
+   cursor: pointer;
+}
+
+.now_playing_body h3:hover{
+  text-decoration: underline;
 }
 
 .now_playing_body .track, .now_playing_body .artist, .now_playing_body .by{
