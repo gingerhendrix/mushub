@@ -80,6 +80,7 @@ Utils.namespace("NowPlaying.data", {
     
     urlDatasource = new NowPlaying.data.musicbrainz.ArtistUrlsDatasource();
     wpDatasource = new NowPlaying.data.wikipedia.WikipediaDatasource();
+    
     urlDatasource.connect("artist_urls", this, "onUrlChange");
     wpDatasource.connect("endUpdate", this, "onWikipediaUpdate");
     

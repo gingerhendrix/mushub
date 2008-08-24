@@ -21,6 +21,8 @@ Utils.namespace("NowPlaying.ui.panels", {
         this.body.innerHTML = "Loading";
         return;
       }
+      
+      this.items.clear();
       var groups = { "MemberOfBand-backward" : { displayName : "Band Members", members : [] },
                      "MemberOfBand-both" : { displayName : "Member of Band", members : [] },
                      "Collaboration-both" : {displayName : "Collaborations", members : [] },
