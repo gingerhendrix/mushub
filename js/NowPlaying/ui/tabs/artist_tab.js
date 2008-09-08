@@ -26,7 +26,9 @@ Utils.namespace("NowPlaying.ui.tabs", {
          	autoScroll: true,
          	layout : "column",
         	items : [{ border: false, width: 660, items : [ artist_info, similar_artists ] },
-        	         { border: false, width: 200, items : [ artist_links, artist_members, top_albums ] }
+        	         { border: false, width: 170, items : [ top_albums] },
+        	         { border: false, width: 170, items : [ artist_links, artist_members] },
+        	         
         	        ]
         });
         
