@@ -11,8 +11,7 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
     
     
     this.onUpdate = function(response){
-
-      this.recent_tracks(response);
+      this.recent_tracks(response.recent_tracks);
       MochiKit.Signal.signal(this, "endUpdate");    
     }
   } 
