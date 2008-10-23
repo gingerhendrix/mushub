@@ -1,2 +1,2 @@
 
-NowPlaying.data.Webservice.SERVER  = "http://json.linode.gandrew.com"
+NowPlaying.data.Webservice.SERVER  = "http://api.mushub.com"
