@@ -114,8 +114,7 @@ Utils.namespace("NowPlaying.data.audioscrobbler", {
 
 
     this.onUpdate = function(response){
-
-      this.recent_tracks(response);
+      this.recent_tracks(response.recent_tracks);
       MochiKit.Signal.signal(this, "endUpdate");
     }
   }
@@ -439,13 +438,16 @@ Utils.namespace("NowPlaying.data", {
       var self = this;
       d.addCallback(function(response){
           console.log("Datasource[anonymous callback] : %o : %o", self, response);
-          self.isLoading = false;
-          self.isError = false;
-          if(response.error){
+          if(response.status==202){
+             window.setTimeout(function(){self.update();}, 1000);
+          }else if(response.errors && response.errors.length > 0){
+            self.isLoading = false;
             self.isError = true;
-            MochiKit.Signal.signal(self, "onError", response.error);
+            MochiKit.Signal.signal(self, "onError", response.errors);
           }else{
-            self.onUpdate(response);
+            self.isLoading = false;
+            self.isError = false;
+            self.onUpdate(response.data);
             MochiKit.Signal.signal(self, "endUpdate");
           }
       });
