@@ -1,0 +1,12 @@
+
+.yahoo_video .video{
+  float: left;
+  width: 140px;
+  margin-right: 10px;
+  text-align: center;
+  height: 120px
+}
+
+.yahoo_video .video .title{
+  font-size: 13px;
+}

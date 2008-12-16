@@ -9,12 +9,14 @@ Utils.namespace("NowPlaying.data", {
      var Data = NowPlaying.data;
      var AS = NowPlaying.data.audioscrobbler;
      var MB = NowPlaying.data.musicbrainz;
+     var Yahoo = NowPlaying.data.yahoo_music;
 
      this.top_albums = new AS.TopAlbumsDatasource();
      this.similar_artists = new AS.SimilarArtistsDatasource();
      this.artist_info =  new Data.ArtistInfoDatasource();
      this.artist_links = new MB.ArtistUrlsDatasource();
      this.artist_members =  new MB.ArtistMembersDatasource();
+     this.videos =  new Yahoo.VideoDatasource();
      
      this.update = function(){
 
@@ -28,6 +30,8 @@ Utils.namespace("NowPlaying.data", {
        this.artist_info.update();
        this.artist_members.artist_mbid = this.artist_mbid;
        this.artist_members.update();
+       this.videos.artist = this.artist;
+       this.videos.update();
        
        MochiKit.Signal.signal(this, "endUpdate", this);             
      }   
