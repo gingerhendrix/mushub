@@ -1,0 +1,45 @@
+<html>
+<head>
+
+    <link rel="stylesheet" href="../../css/nowplaying.css"/>
+    <link rel="stylesheet" href="../../css/ext-all.css"/> 
+
+    <script src="../../js/MochiKit/MochiKit.js"></script>
+
+    <script src="../../js/Ext/ext-base.js"></script>
+    <script src="../../js/Ext/ext-all.js"></script>
+    
+    <script src="../../js/jsUtils.js"></script>
+    <script src="../../js/sendJSONPRequest.js"></script>
+
+    <script src="../../js/NowPlaying/utils/databean.js"></script>
+    
+    <script src="../../js/NowPlaying/data/webservice.js"></script>
+    <script src="../../js/NowPlaying/data/datasource.js"></script>
+    <script src="../../js/NowPlaying/data/yahoo_music/video_datasource.js"></script>
+    <script src="../../js/NowPlaying/ui/panels/yahoo_video_panel.js"></script>
+    
+    <script src="../../js/config/config.development.js"></script>
+    
+    <script>
+      var data = new NowPlaying.data.yahoo_music.VideoDatasource();
+      data.artist = "Eric Clapton";
+      var panel = new NowPlaying.ui.panels.YahooVideoPanel({ datasource : data });
+      data.update();
+          
+      new Ext.Viewport({
+        layout : 'fit',
+        items : [{
+           items : [panel]        
+        }]
+      
+      });
+    
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>  
+
