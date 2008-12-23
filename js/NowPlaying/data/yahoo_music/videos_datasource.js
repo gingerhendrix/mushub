@@ -1,6 +1,6 @@
 
 Utils.namespace("NowPlaying.data.yahoo_music", { 
-  VideoDatasource : function(artist){
+  VideosDatasource : function(artist){
     Utils.extend(this, new NowPlaying.data.Datasource(
                                        { service : "yahoo_music/videos",
                                          params : [{ name : "artist", prop : "artist" }]

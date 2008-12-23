@@ -1,5 +1,5 @@
 Utils.namespace("NowPlaying.ui.panels", {
-  YahooVideoPanel : Ext.extend(Ext.Panel, {
+  YahooVideosPanel : Ext.extend(Ext.Panel, {
     title: 'Videos',
     autoHeight : true,
     width : 640,
@@ -7,7 +7,7 @@ Utils.namespace("NowPlaying.ui.panels", {
     initComponent : function(){
       this.datasource.connect("beginUpdate", this, "onChange");
       this.datasource.connect("endUpdate", this, "onChange");
-      NowPlaying.ui.panels.YahooVideoPanel.superclass.initComponent.apply(this, arguments);
+      NowPlaying.ui.panels.YahooVideosPanel.superclass.initComponent.apply(this, arguments);
     },
     onChange : function(data){
       this.updateContent();
@@ -48,7 +48,7 @@ Utils.namespace("NowPlaying.ui.panels", {
       this.contentEl.innerHTML = videoEl;
     },
     onRender : function(ct, position){
-      NowPlaying.ui.panels.YahooVideoPanel.superclass.onRender.apply(this, arguments);
+      NowPlaying.ui.panels.YahooVideosPanel.superclass.onRender.apply(this, arguments);
       this.updateContent();
    }
   })

@@ -19,7 +19,7 @@ Utils.namespace("NowPlaying.ui.tabs", {
        var artist_info = new Panels.ArtistInfoPanel({datasource : this.datasource.artist_info});
        var artist_links = new Panels.ArtistLinksPanel({datasource : { musicbrainz : this.datasource.artist_links, torrents : this.datasource}});
        var artist_members = new Panels.ArtistMembersPanel({datasource : this.datasource.artist_members});
-       var artist_videos = new Panels.YahooVideoPanel({datasource : this.datasource.videos});
+       var artist_videos = new Panels.YahooVideosPanel({datasource : this.datasource.videos});
        
        var artistInfoPanel = new Ext.Panel({
           border: false,

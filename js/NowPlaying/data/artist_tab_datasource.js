@@ -16,7 +16,7 @@ Utils.namespace("NowPlaying.data", {
      this.artist_info =  new Data.ArtistInfoDatasource();
      this.artist_links = new MB.ArtistUrlsDatasource();
      this.artist_members =  new MB.ArtistMembersDatasource();
-     this.videos =  new Yahoo.VideoDatasource();
+     this.videos =  new Yahoo.VideosDatasource();
      
      this.update = function(){
 

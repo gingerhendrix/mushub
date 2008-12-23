@@ -16,15 +16,15 @@
     
     <script src="../../js/NowPlaying/data/webservice.js"></script>
     <script src="../../js/NowPlaying/data/datasource.js"></script>
-    <script src="../../js/NowPlaying/data/yahoo_music/video_datasource.js"></script>
-    <script src="../../js/NowPlaying/ui/panels/yahoo_video_panel.js"></script>
+    <script src="../../js/NowPlaying/data/yahoo_music/videos_datasource.js"></script>
+    <script src="../../js/NowPlaying/ui/panels/yahoo_videos_panel.js"></script>
     
     <script src="../../js/config/config.development.js"></script>
     
     <script>
-      var data = new NowPlaying.data.yahoo_music.VideoDatasource();
+      var data = new NowPlaying.data.yahoo_music.VideosDatasource();
       data.artist = "Eric Clapton";
-      var panel = new NowPlaying.ui.panels.YahooVideoPanel({ datasource : data });
+      var panel = new NowPlaying.ui.panels.YahooVideosPanel({ datasource : data });
       data.update();
           
       new Ext.Viewport({
