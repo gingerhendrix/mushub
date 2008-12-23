@@ -1,0 +1,35 @@
+<html>
+<head>
+<script>
+  
+  function embedVideo(){
+      html = "";  
+      html += "<div id='uvp_fop_container' style='width:512px;height:322px;'>";
+      //html += "<a href='http://www.adobe.com/products/flashplayer/'>Please Install Flash</a>";
+      html += "</div>";
+      document.body.innerHTML = html;
+      window.setTimeout(function(){initVideo(2140336, 'uvp_fop_container')}, 1);
+  }
+  
+  function initVideo(id, container){
+    var so = new SWFObject('http://d.yimg.com/cosmos.bcst.yahoo.com/up/fop/embedflv/swf/fop.swf', 'uvp_fop', '512', '322', '9', '#ffffff');
+    so.addVariable('id', 'v' + id);
+    so.addVariable('eID', '1301797');    // NEEDS TO CHANGE DEPENDING ON LOCALE
+    so.addVariable('ympsc', '4195351');  // NEEDS TO CHANGE DEPENDING ON LOCALE
+    so.addVariable('lang', 'en');        // NEEDS TO CHANGE DEPENDING ON LOCALE
+    so.addVariable('shareEnable', '1');
+    so.addParam("allowFullScreen", "true");
+    so.addVariable('enableFullScreen', '1');
+    so.addVariable('autoStart', '0');
+    so.addParam("allowScriptAccess", "always");  // for scripting access
+    so.write(container);
+
+  }
+
+</script>
+<script type='text/javascript' language='javascript' src='http://us.js2.yimg.com/us.js.yimg.com/lib/flash/swfobject/1.0/swfobject.js'></script>
+</head>
+<body onload="embedVideo()">
+
+</body>
+</html>
