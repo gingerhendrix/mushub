@@ -1,5 +1,5 @@
 
-.yahoo_video .video{
+.yahoo_videos .video{
   float: left;
   width: 140px;
   margin-right: 10px;
@@ -7,6 +7,6 @@
   height: 120px
 }
 
-.yahoo_video .video .title{
+.yahoo_videos .video .title{
   font-size: 13px;
 }

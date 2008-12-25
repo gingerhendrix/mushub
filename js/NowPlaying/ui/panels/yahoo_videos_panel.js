@@ -32,20 +32,25 @@ Utils.namespace("NowPlaying.ui.panels", {
       }
       this.contentEl.innerHTML = "";
       
-      var videoEl = "<div class='yahoo_video'>";
+      var videosEl = document.createElement("div");
+      videosEl.setAttribute("class", "yahoo_videos");
       
       var videos = this.datasource.videos();
 
-//      this.contentEl.innerHTML = videos.toSource();      
       videos.forEach(function(video){
-        videoHtml = "<div class='video'>";
+        videoEl = document.createElement("div");
+        videoEl.setAttribute("class", "video");
+
+        videoHtml = "";
         videoHtml += "<img src='http://d.yimg.com/img.music.yahoo.com/image/v1/video/"+video.id+"?size=140x84'></img>";
         videoHtml += "<span class='title'>"+video.title+"</span>";
-        videoHtml += "</div>";
-        videoEl += videoHtml;
+        
+        videoEl.innerHTML = videoHtml;
+
+        videosEl.appendChild(videoEl);
       });
-      videoEl += "</div>"
-      this.contentEl.innerHTML = videoEl;
+
+      this.contentEl.appendChild(videosEl);
     },
     onRender : function(ct, position){
       NowPlaying.ui.panels.YahooVideosPanel.superclass.onRender.apply(this, arguments);
