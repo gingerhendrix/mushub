@@ -2,7 +2,10 @@
   <head>
     <link rel="stylesheet" href="css/nowplaying.css"/>
     <link rel="stylesheet" href="css/ext-all.css"/>
-  
+    
+    <!-- For yahoo video player -->  
+    <script type='text/javascript' language='javascript' src='http://us.js2.yimg.com/us.js.yimg.com/lib/flash/swfobject/1.0/swfobject.js'></script>
+
     <script src="js/MochiKit/MochiKit.js"></script>
 
     <script src="js/Ext/ext-base.js"></script>
@@ -33,7 +36,7 @@
                                           
           loadLibrary("data/wikipedia", ["wikipedia_datasource"]);
           
-          loadLibrary("data/yahoo_music", ["videos_datasource"]);
+          loadLibrary("data/yahoo_music", ["videos_datasource", "video_datasource"]);
 
           loadLibrary("data", ["application_datasource", 
                                "now_playing_datasource",
@@ -63,7 +66,8 @@
                                      ]);
           
           loadLibrary("ui/windows", ["album_info_window",
-                                     "recent_tracks_window"]);                        
+                                     "recent_tracks_window",
+                                     "yahoo_video_window"]);                        
           
           loadLibrary("ui/tabs", ["artist_tab"]);
 
