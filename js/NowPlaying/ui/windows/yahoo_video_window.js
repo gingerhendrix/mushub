@@ -42,10 +42,11 @@ Utils.namespace("NowPlaying.ui.windows", {
       }
       console.log("Updating with real data");
       var video = this.datasource.video();
+
+      this.setTitle("Video: " + video.title + " - " + video.artists[0].name);
       
       html = "";  
       html += "<div id='uvp_fop_container' style='width:512px;height:322px;'>";
-      //html += "<a href='http://www.adobe.com/products/flashplayer/'>Please Install Flash</a>";
       html += "</div>";
       
       this.contentEl.innerHTML = html;
