@@ -40,9 +40,13 @@ Utils.namespace("NowPlaying.ui.windows", {
         console.log("Updating content - Error");
         return;
       }
-      console.log("Updating with real data");
+     
       var video = this.datasource.video();
-
+      if(!video){
+        return; 
+        console.log("No Video"); 
+      }
+      console.log("Updating with real data"); 
       this.setTitle("Video: " + video.title + " - " + video.artists[0].name);
       
       html = "";  

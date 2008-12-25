@@ -12,6 +12,14 @@ Utils.namespace("NowPlaying.ui.panels", {
     onChange : function(data){
       this.updateContent();
     },
+    onClick : function(id){
+      var data = new NowPlaying.data.yahoo_music.VideoDatasource();
+      data.id = id;
+      var win= new NowPlaying.ui.windows.YahooVideoWindow({ datasource : data });
+      win.show();
+      data.update();
+      
+    },
     updateContent : function(){
       if(!this.body){
          return;
@@ -36,16 +44,21 @@ Utils.namespace("NowPlaying.ui.panels", {
       videosEl.setAttribute("class", "yahoo_videos");
       
       var videos = this.datasource.videos();
+      var self = this;
 
       videos.forEach(function(video){
         videoEl = document.createElement("div");
         videoEl.setAttribute("class", "video");
-
+        
         videoHtml = "";
         videoHtml += "<img src='http://d.yimg.com/img.music.yahoo.com/image/v1/video/"+video.id+"?size=140x84'></img>";
         videoHtml += "<span class='title'>"+video.title+"</span>";
         
         videoEl.innerHTML = videoHtml;
+
+        videoEl.addEventListener("click", function(){
+          self.onClick(video.id);       
+        }, false);
 
         videosEl.appendChild(videoEl);
       });
