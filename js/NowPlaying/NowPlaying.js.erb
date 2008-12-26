@@ -1,4 +1,4 @@
 
 <% Dir.glob("**/*.js") do |file| %>
-  <%= include file unless file == "NowPlaying.js" %>
+  <%= include file unless (file == "NowPlaying.js" || file == "startup.js" || file == "dependencies.js" %>
 <% end %>

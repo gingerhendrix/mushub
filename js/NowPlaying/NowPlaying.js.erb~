@@ -1,4 +1,0 @@
-
-<% Dir.glob("**/*.js") do |file| %>
-  <%= include file unless file == "NowPlaying.js" %>
- <% end %>
