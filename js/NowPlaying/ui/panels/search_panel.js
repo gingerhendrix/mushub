@@ -7,7 +7,7 @@ Utils.namespace("NowPlaying.ui.panels", {
     height: 140,
     initComponent : function(){
        //this.datasource.connect("endUpdate", this, "onUpdate");
-       NowPlaying.ui.panels.TorrentSearchPanel.superclass.initComponent.apply(this, arguments);
+       NowPlaying.ui.panels.SearchPanel.superclass.initComponent.apply(this, arguments);
     },
     
     onUpdate : function(data){
@@ -94,7 +94,7 @@ Utils.namespace("NowPlaying.ui.panels", {
     },
     
     onRender : function(ct, position){
-      NowPlaying.ui.panels.TorrentSearchPanel.superclass.onRender.apply(this, arguments);
+      NowPlaying.ui.panels.SearchPanel.superclass.onRender.apply(this, arguments);
       this.updateContent();
    }
   })
