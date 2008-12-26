@@ -51,7 +51,7 @@
                                      "recent_tracks_window",
                                      "yahoo_video_window"]);                        
           
-          loadLibrary("ui/tabs", ["artist_tab"]);
+          loadLibrary("ui/tabs", ["artist_tab", "home_tab"]);
 
           loadLibrary("ui", ["application_ui"]);
           
