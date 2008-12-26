@@ -1,0 +1,51 @@
+<html>
+<head>
+
+    <link rel="stylesheet" href="../../css/nowplaying.css"/>
+    <link rel="stylesheet" href="../../css/ext-all.css"/> 
+
+    <script src="../../js/MochiKit/MochiKit.js"></script>
+
+    <script src="../../js/Ext/ext-base.js"></script>
+    <script src="../../js/Ext/ext-all.js"></script>
+    
+    <script src="../../js/jsUtils.js"></script>
+    <script src="../../js/sendJSONPRequest.js"></script>
+
+    <script src="../../js/NowPlaying/utils/databean.js"></script>
+    
+    <script src="../../js/NowPlaying/data/webservice.js"></script>
+    <script src="../../js/NowPlaying/data/datasource.js"></script>
+
+    <script src="../../js/NowPlaying/ui/panels/search_panel.js"></script>
+
+    <script src="../../js/NowPlaying/ui/tabs/home_tab.js"></script>
+    <script src="../../js/config/config.development.js"></script>
+    
+    <script>
+
+    var homePageTab = new NowPlaying.ui.tabs.HomeTab()
+
+
+    var tabPanel = new Ext.TabPanel({
+          region : 'center',
+          margins: '20 20 0 20',
+          activeTab : 0,
+          deferredRender : false,
+          items : [homePageTab]
+    });
+          
+      new Ext.Viewport({
+        layout : 'fit',
+        items : [tabPanel]
+      
+      });
+    
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>  
+
