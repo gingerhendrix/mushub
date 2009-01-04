@@ -11,21 +11,7 @@ Utils.extend(NowPlaying.Application, (function(){
          }
       }, false); 
       
-      /**
-      
-         TODO
-         ====
-         Make UI classes proper Ext Components
-         Delegate datsource creation to components/parents
-         Create new ArtistInfoTab to show arbitrary artist info - refactor with NowPlayingTab to have common ancestor
-         Add a search box somewhere to open new tabs
-         Make artists links clickable
-         Remove album  info
-         Make albums clickable - and show album info mini-window (overlay)
-                
-       **/
-  
-      function initialiseDatasources(){
+     function initialiseDatasources(){
         NowPlaying.Application.data = new NowPlaying.data.ApplicationDatasource();
       }      
       
