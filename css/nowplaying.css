@@ -1,4 +1,6 @@
 
+@import url(tabs/home_tab.css);
+
 @import url(panels/artist_links_panel.css);
 @import url(panels/artist_relations_panel.css);
 
