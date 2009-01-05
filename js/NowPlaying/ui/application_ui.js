@@ -1,5 +1,6 @@
 Utils.namespace("NowPlaying.ui", {
   ApplicationUI : function(datasource){
+    var self = this;
     this.datasource = datasource;
     
     var UI = NowPlaying.ui;
@@ -11,8 +12,12 @@ Utils.namespace("NowPlaying.ui", {
     var appUI = Utils.namespace("NowPlaying.Application.ui");
     var appData = NowPlaying.Application.data;
 
-    this.userPanel = new Panels.UserPanel({datasource : datasource.user});        
+    this.userPanel = new Panels.UserPanel({datasource : this.datasource.user});        
     this.searchPanel = new Panels.SearchPanel();
+    
+    this.nowPlayingTab = new Tabs.ArtistTab({title : "Now Playing", 
+                                       datasource : this.datasource.now_playing_tab,
+                                       closable : false })
     
     this.tabPanel = new Ext.TabPanel({
           region : 'center',
@@ -20,11 +25,17 @@ Utils.namespace("NowPlaying.ui", {
           activeTab : 0,
           deferredRender : false,
           items : [ new Tabs.HomeTab(),
-                    new Tabs.ArtistTab({title : "Now Playing", 
-                                       datasource : this.datasource.now_playing_tab,
-                                       closable : false }),
+                    this.nowPlayingTab,
                   ]
     });
+    
+    if(!this.datasource.user.username()){
+      this.nowPlayingTab.disable();
+      
+      this.datasource.user.connect("username", function(){
+         self.nowPlayingTab.enable();     
+      })
+    }
     
     this.viewport = new Ext.Viewport({
                layout : 'border',
