@@ -34,7 +34,7 @@ Utils.namespace("NowPlaying.ui.panels", {
       for(var i=0; i< urls.length; i++){
         var li = document.createElement("li");
         var a = document.createElement("a");
-        a.setAttribute("target", "_new");
+        a.setAttribute("target", "_blank");
         a.setAttribute("href", urls[i].href);
         a.innerHTML = urls[i].rel;
         if(urls[i].rel == "Wikipedia"){
