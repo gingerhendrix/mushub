@@ -8,7 +8,7 @@ Utils.namespace("mushub.model.wikipedia", {
     var self = this;
     this.update_wikipedia = this.update;
     this.update = function(){
-      if(artist.musicbrainz_urls.isLoaded){
+      if(artist.musicbrainz_links.isLoaded){
         this.updateUrl();
       }else{
         this.updateMusicbrainz();
@@ -16,12 +16,12 @@ Utils.namespace("mushub.model.wikipedia", {
     }                    
     
     this.updateMusicbrainz = function(){
-      artist.musicbrainz_urls.connect("endUpdate", this, this.updateUrl);
-      artist.musicbrainz_urls.update();
+      artist.musicbrainz_links.connect("endUpdate", this, this.updateUrl);
+      artist.musicbrainz_links.update();
     }
     
     this.updateUrl = function(){
-      var urls = artist.musicbrainz_urls.artist_urls();
+      var urls = artist.musicbrainz_links.artist_urls();
       var wikipedia_urls = [];
       urls.forEach(function(link){
       if(link.rel == "Wikipedia"){
@@ -37,7 +37,8 @@ Utils.namespace("mushub.model.wikipedia", {
              self.update_wikipedia();
           }
         });
-    }                   
+      }                   
+   }
                                        
     this.makeProp("wikipedia_content");
     
