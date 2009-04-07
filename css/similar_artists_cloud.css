@@ -1,0 +1,24 @@
+
+.similar_artists ol.cloud{
+  text-align: center;
+}
+
+.similar_artists ol.cloud li{
+  list-style: none;
+  margin-right: 20px;
+  line-height: 12pt;
+  display: inline;
+  white-space: nowrap;
+}
+
+.similar_artists ol.cloud li.large{
+  font-size: 11pt;
+}
+
+.similar_artists ol.cloud li.medium{
+  font-size: 10pt;
+}
+
+.similar_artists ol.cloud li.small{
+  font-size: 8pt;
+}

@@ -24,11 +24,43 @@ function LastfmSimilarArtistsPanel(artist){
     }else if(data.isError){
       $(contentEl).text("Error...");    
     }else if(data.isLoaded){
-      $(contentEl).append(similarArtistsQuilt(data.similar_artists()));
+      $(contentEl).append(similarArtistsCloud(data.similar_artists()));
     }else{
       $(contentEl).text("Waaaa");      
     }
     $(container).append(contentEl);
+  }
+  
+  function similarArtistsCloud(similar_artists){
+     var cloud = document.createElement("ol");
+     cloud.setAttribute("class", "cloud");    
+     
+     function makeLink(artist, clazz, size, label){
+       var similar_li = document.createElement("li");
+       similar_li.setAttribute("class", clazz);
+       $(similar_li).text(artist.name)
+       return similar_li;
+     }
+     
+    similar_artists.slice(0, 10).forEach(function(sim){
+      var similar_li = makeLink(sim, "large", 130, false);
+      cloud.appendChild(similar_li);
+      $(cloud).append(" ");
+    });
+    
+    similar_artists.slice(10, 25).forEach(function(sim){
+      var similar_li = makeLink(sim, "medium", 65, false);
+      cloud.appendChild(similar_li);
+      $(cloud).append(" ");
+    });
+    
+    similar_artists.slice(25, 50).forEach(function(sim){
+      var similar_li = makeLink(sim, "small", 33, false);
+      cloud.appendChild(similar_li);
+      $(cloud).append(" ");
+    });
+    return cloud;
+
   }
   
  function similarArtistsQuilt(similar_artists){

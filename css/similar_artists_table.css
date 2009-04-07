@@ -1,0 +1,52 @@
+
+.similar_artists ol.table{
+  height: 480px;
+  overflow: auto;
+}
+
+.similar_artists ol.table li{
+  list-style: none;
+  clear: both;
+  margin-top: 2px;
+  height: 35px;
+}
+
+.similar_artists ol.table li img{
+  float: left;
+  width: 35px;
+  height: 35px;
+
+}
+
+.similar_artists ol.table li span.artist{
+  float: left;
+  width: 275px;
+  text-align: left;
+  font-family: verdana, helvetica, sans;
+  font-size: 14px;
+  padding-left: 25px;
+  line-height: 35px;
+}
+
+.similar_artists ol.table li span.match{
+  float: left;
+  width: 50px;
+  line-height: 35px;
+  text-align: left;
+}
+
+.similar_artists ol.table li span.match_bar{
+  float: left;
+  height: 35px;
+  width: 155px;
+  margin-right: 20px;
+}
+
+.similar_artists ol.table li span.match_bar_inner{
+  display: block;
+  height: 11px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  background-color: #6593CF;
+}
+

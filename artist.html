@@ -46,7 +46,7 @@
       var artist = Artist.findByNameAndMBid(artist_name, artist_mbid);
       var ui = new ArtistUI($('#artist_ui'), artist);
       ui.addContent("Biography", new BiographyPanel(artist), {});
-      ui.addContent("Albums", new LastfmTopAlbumsPanel(artist), {});
+      ui.addContent("Top Albums", new LastfmTopAlbumsPanel(artist), {});
       ui.addContent("Similar Artists", new LastfmSimilarArtistsPanel(artist), {});
       ui.addContent("Links", new MusicbrainzLinksPanel(artist), {});
       ui.writeHTML();
