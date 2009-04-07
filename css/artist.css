@@ -1,1 +1,73 @@
+@import 'top_albums.css';
 
+body{
+  width: 960px;
+  font-family: arial;
+  font-size: 11pt;
+  padding: 0;
+  margin: 0;
+}
+
+h1{
+  display: block;
+  font-size: 32pt;
+  margin: 0px;
+  padding-top: 100px;
+  padding-left: 5px;
+  line-height: 50px;
+  width: 100%;
+  position: fixed;
+  background-color: #ffffff;
+}
+
+
+.artist_menu{
+  float: left;
+  width: 175px;
+  margin-top: 0px;
+  padding-top: 150px;
+  margin-right: 20px;
+  margin-left: 5px;
+  position: fixed;
+}      
+
+.artist_menu span{
+    display: block;
+    font-size: 12pt;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    background-color: #ffaaaa;
+    margin-bottom: 5px;
+    cursor: pointer;
+}      
+
+
+div.content_container{
+  width: 760px;
+  margin-left: 200px;
+  padding-top: 150px;
+  margin-bottom: 1000px;
+}
+
+div.content_container > div{
+  padding-bottom: 1em;
+}
+
+
+div.content_container > div p{
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: georgia;
+  line-height: 1.1;
+}
+
+div.content_container h3{
+  font-weight: normal;
+  margin-top: 0px;
+  font-size: 12pt;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: -20px;
+  padding-left: 20px;
+}

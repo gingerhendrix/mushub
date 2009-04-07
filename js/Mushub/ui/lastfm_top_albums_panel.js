@@ -17,7 +17,7 @@ function LastfmTopAlbumsPanel(artist){
     
     $(container).html("");
     contentEl = document.createElement("div");
-    
+   
     if(artist.lastfm_top_albums.isLoading){
       $(contentEl).text("Loading...");
     }else if(artist.lastfm_top_albums.isError){

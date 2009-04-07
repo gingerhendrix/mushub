@@ -1,0 +1,20 @@
+
+.top_albums li span{
+  text-align: center;
+  font-family: verdana, helvetica, sans;
+  font-size: 12px;
+}
+
+.top_albums{
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.top_albums li{
+  list-style: none;
+  width: 130px;
+  margin-right: 10px;
+  margin-bottom: 14px;
+  float: left;
+}

@@ -12,6 +12,7 @@ function ArtistUI(element, artist){
     $(element).append(menuElement);
     this.writeMenu();
     contentElement = document.createElement("div");
+    contentElement.setAttribute("class", "content_container");
     $(element).append(contentElement);
     this.writeContent();
   }         
