@@ -1,0 +1,59 @@
+
+<html>
+  <head>
+
+    <link rel="stylesheet" href="css/artist.css"/>
+    <script src="js/jsUtils.js"></script>
+    <script src="js/MochiKit/MochiKit.js"></script>
+    <script src="js/sendJSONPRequest.js"></script>
+  
+    <script src="js/jquery.js"></script>
+  
+    <script src="js/Mushub/dependencies.js"></script>
+    
+    
+    <script>
+   
+    //Stolen from jsUtils    
+
+   function QueryString(qs){
+      this.parts = {};
+      var self = this;
+      
+      if(qs.indexOf("?")==0){
+        qs = qs.substring(1);
+      } 
+      
+      qs.split("&").forEach(function(pair){
+        var bits = pair.split("=");
+        self.parts[bits[0]] = decodeURIComponent(bits[1]);
+      });
+
+    }
+
+    QueryString.fromLocation = function(){
+      return new QueryString(window.location.search);
+    }   
+   
+   </script>
+    
+   <script>
+    var params = QueryString.fromLocation();
+    var artist_name = params.parts.artist_name;
+
+    $(document).ready(function(){
+      var artist = Artist.findByName(artist_name);
+      var ui = new ArtistUI($('#artist_ui'), artist);
+      ui.addContent("Biography", new BiographyPanel(artist), {});
+      ui.addContent("Albums", new LastfmTopAlbumsPanel(artist), {});
+      ui.writeHTML();
+    });  
+    </script>
+
+  </head>
+    <body>
+
+    <div id="artist_ui"></div>
+  
+  </body>
+</html>
