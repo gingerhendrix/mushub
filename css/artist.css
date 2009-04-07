@@ -1,4 +1,5 @@
 @import 'top_albums.css';
+@import 'similar_artists.css';
 
 body{
   width: 960px;
@@ -52,6 +53,7 @@ div.content_container{
 
 div.content_container > div{
   padding-bottom: 1em;
+  overflow: hidden;
 }
 
 

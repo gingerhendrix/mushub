@@ -28,7 +28,11 @@ function ArtistUI(element, artist){
   
   this.writeContent = function(){
     contentPanels.forEach(function(cp){
-      cp.panel.writeContent(contentElement);
+      var container = document.createElement("div");
+      container.setAttribute("class", "container");
+      $(container).html("<h3>"+cp.label+"</h3");
+      cp.panel.writeContent(container);
+      $(contentElement).append(container);
     });
   }
   

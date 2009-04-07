@@ -34,7 +34,7 @@ function Datasource(config){
     d.addCallback(function(response){
         console.log("Datasource[anonymous callback] : %o : %o", self, response);
         if(response.status==202){
-           window.setTimeout(function(){self.update();}, 1000);
+           window.setTimeout(function(){ self.isLoading = false; self.update();}, 1000);
         }else if(response.errors && response.errors.length > 0){
           self.isLoading = false;    
           self.isError = true;

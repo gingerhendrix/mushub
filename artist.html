@@ -40,12 +40,15 @@
    <script>
     var params = QueryString.fromLocation();
     var artist_name = params.parts.artist_name;
+    var artist_mbid = params.parts.artist_mbid;
 
     $(document).ready(function(){
-      var artist = Artist.findByName(artist_name);
+      var artist = Artist.findByNameAndMBid(artist_name, artist_mbid);
       var ui = new ArtistUI($('#artist_ui'), artist);
       ui.addContent("Biography", new BiographyPanel(artist), {});
       ui.addContent("Albums", new LastfmTopAlbumsPanel(artist), {});
+      ui.addContent("Similar Artists", new LastfmSimilarArtistsPanel(artist), {});
+      ui.addContent("Links", new MusicbrainzLinksPanel(artist), {});
       ui.writeHTML();
     });  
     </script>

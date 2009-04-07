@@ -15,9 +15,9 @@ function LastfmTopAlbumsPanel(artist){
     container = container || containerEl;
     containerEl = container;
     
-    $(container).html("");
-    contentEl = document.createElement("div");
-   
+    contentEl = contentEl || document.createElement("div");
+    $(contentEl).html("");
+
     if(artist.lastfm_top_albums.isLoading){
       $(contentEl).text("Loading...");
     }else if(artist.lastfm_top_albums.isError){
