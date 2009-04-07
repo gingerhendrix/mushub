@@ -4,6 +4,7 @@
         if(isLocalhost()){
 
           loadLibrary("model", ["artist", "artist_biography_datasource", "lastfm_top_albums_datasource"]);
+          loadLibrary("model/audioscrobbler", ["top_albums_datasource"]);
           loadLibrary("ui", ["artist_ui", "biography_panel", "lastfm_top_albums_panel"]);
           loadLibrary("utils", ["databean", "datasource", "webservice"]);
           
