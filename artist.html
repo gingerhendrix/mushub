@@ -38,11 +38,10 @@
    </script>
     
    <script>
-    var params = QueryString.fromLocation();
-    var artist_name = params.parts.artist_name;
-    var artist_mbid = params.parts.artist_mbid;
-
-    $(document).ready(function(){
+    function showArtistUI(artist_name, artist_mbid){
+      $(document.body).removeClass("search");
+      $(document.body).addClass("artist");
+      $("#search_input").attr("disabled", false);  
       var artist = Artist.findByNameAndMBid(artist_name, artist_mbid);
       var ui = new ArtistUI($('#artist_ui'), artist);
       ui.addContent("Biography", new BiographyPanel(artist), {});
@@ -50,12 +49,64 @@
       ui.addContent("Similar Artists", new LastfmSimilarArtistsPanel(artist), {});
       ui.addContent("Links", new MusicbrainzLinksPanel(artist), {});
       ui.writeHTML();
-    });  
+    }
+    
+    function performQuery(query){
+        $("#search_input").attr("value", query);
+        $("#search_input").attr("disabled", true);        
+        var search = new ArtistQuery(query);
+        search.musicbrainz_search.connect("endUpdate", this, function(){
+          var results = search.musicbrainz_search.search_results();
+          if(results.length >0){
+            var result = results[0];
+            var artist_name = result.artist_name;
+            var artist_mbid = result.artist_mbid;
+           // window.location.search = "?artist_name="+encodeURIComponent(artist_name)+"&artist_mbid="+artist_mbid;
+           showArtistUI(artist_name, artist_mbid);
+          }
+//          alert("Results "  + results.toSource());
+        });
+        search.musicbrainz_search.update();
+    }
+   
+    var params = QueryString.fromLocation().parts;
+    console.log("Params : %o", params);
+    if(params.artist_name && params.artist_mbid){
+      console.log("Show Artist");
+      var artist_name = params.artist_name;
+      var artist_mbid = params.artist_mbid;
+      $(document).ready(function(){
+          showArtistUI(artist_name, artist_mbid);
+      });  
+    }else if(params.artist_name || params.query){
+      console.log("Searching...");
+      var query = params.artist_name || params.query;
+      $(document).ready(function(){
+        performQuery(query);
+      });
+    }else{
+      console.log("Startup..");
+    }
+    
+    function searchSubmit(){
+      var query = $('#search_input').val();
+      performQuery(query);
+      return false;
+    }
+    
     </script>
 
   </head>
-    <body>
+    <body class="search">
 
+    <div id="top_bar">
+      <a href="artist.html" class="logo"><img class="logo" src="images/logo.png" width="100" height="30" alt="mushub"/></a>
+      <form action="#" method="GET" onsubmit="return searchSubmit();">
+        <input type="text" name="query" class="search" id="search_input"></input>
+        <input type="submit" name="search" value="search" class="submit"></input>
+      </form>
+    </div>
+    
     <div id="artist_ui"></div>
   
   </body>

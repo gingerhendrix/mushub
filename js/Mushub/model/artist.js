@@ -14,3 +14,5 @@ function Artist(name, mbid){
 Artist.findByNameAndMBid = function(name, mbid){
   return new Artist(name, mbid);
 }
+
+

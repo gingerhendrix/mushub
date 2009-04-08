@@ -3,9 +3,9 @@
       
         if(isLocalhost()){
 
-          loadLibrary("model", ["artist", "artist_biography_datasource", "lastfm_top_albums_datasource"]);
+          loadLibrary("model", ["artist", "artist_query"]);
           loadLibrary("model/audioscrobbler", ["top_albums_datasource", "similar_artists_datasource"]);
-          loadLibrary("model/musicbrainz", ["artist_members_datasource", "artist_urls_datasource"]);
+          loadLibrary("model/musicbrainz", ["artist_members_datasource", "artist_urls_datasource", "artist_search_datasource"]);
           loadLibrary("model/wikipedia", ["wikipedia_datasource"]);
 
           loadLibrary("ui", ["artist_ui", "biography_panel", "lastfm_top_albums_panel", "lastfm_similar_artists_panel", "musicbrainz_links_panel"]);
