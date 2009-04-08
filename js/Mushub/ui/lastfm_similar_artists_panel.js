@@ -38,7 +38,7 @@ function LastfmSimilarArtistsPanel(artist){
      function makeLink(artist, clazz, size, label){
        var similar_li = document.createElement("li");
        similar_li.setAttribute("class", clazz);
-       $(similar_li).text(artist.name)
+       $(similar_li).html("<a href='artist.html?artist_name="+artist.name+"&artist_mbid="+artist.mbid+"'>"+artist.name+"</a>")
        return similar_li;
      }
      

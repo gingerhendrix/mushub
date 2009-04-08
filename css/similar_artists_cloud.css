@@ -3,6 +3,15 @@
   text-align: center;
 }
 
+.similar_artists ol.cloud li a{
+  text-decoration: none;
+  color: #000;
+}
+
+.similar_artists ol.cloud li a:hover{
+  text-decoration: underline;
+}
+
 .similar_artists ol.cloud li{
   list-style: none;
   margin-right: 20px;
