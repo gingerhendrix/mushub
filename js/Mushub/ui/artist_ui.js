@@ -5,7 +5,9 @@ function ArtistUI(element, artist){
   var contentPanels = [];
 
   this.writeHTML = function(){
-    var html = "<h1>" + artist.name + "</h1>";
+    var html = "<h1>" 
+             + "<a href='artist.html?artist_name=" + artist.name + "&artist_mbid="+ artist.mbid + "' class='permalink'>" + artist.name + "</a>"
+             + "</h1>";
     $(element).html(html);
     menuElement = document.createElement("div");
     menuElement.setAttribute("class", "artist_menu");
