@@ -4,7 +4,10 @@ function MusicbrainzLinksPanel(artist){
   var containerEl;
   var self = this;
   var data = artist.musicbrainz_links;  
-  
+  var additionalLinks = [{label : "lastfm", href : "http://last.fm/music/"  + artist.name },
+                        {label : "stmusic", href : "http://stmusic.org/browse.php?search=" + artist.name},
+                        {label : "mininova", href : "http://www.mininova.org/search/?search=" + artist.name},
+                        {label : "piratebay", href : "http://www.piratebay.org/search/" + artist.name}]
   this.onUpdate = function(){
     self.writeContent();
   }
@@ -23,6 +26,7 @@ function MusicbrainzLinksPanel(artist){
       $(contentEl).text("Error...");    
     }else if(data.isLoaded){
       var list = document.createElement("ul");
+      $(list).addClass("links");
       $(contentEl).append(list);
       var urls = data.artist_urls();
       if(!urls || urls.length == 0){
@@ -32,25 +36,36 @@ function MusicbrainzLinksPanel(artist){
         return;        
       }
       for(var i=0; i< urls.length; i++){
-        var li = document.createElement("li");
-        var a = document.createElement("a");
-        a.setAttribute("target", "_blank");
-        a.setAttribute("href", urls[i].href);
-        a.innerHTML = urls[i].rel;
         if(urls[i].rel == "Wikipedia"){
           var countryMatch =(new RegExp("http://([A-Za-z]*).wikipedia.org")).exec(urls[i].href);
           if(countryMatch){
             var country = countryMatch[1];
-            a.innerHTML = urls[i].rel + " ["+country+"]";
-          } 
+            var li = createLink("Wikipedia ["+country+"]", urls[i].href)
+          }else{
+            var li = createLink("Wikipedia", urls[i].href);
+          }
+        }else{
+          var li = createLink(urls[i].rel, urls[i].href);
         }
-        li.appendChild(a);
         $(list).append(li);
       }
+      additionalLinks.forEach(function(link){
+        $(list).append(createLink(link.label, link.href));
+      });
     }else{
       $(contentEl).text("Waa...");    
     }
 
+  }
+  
+  function createLink(label, href){
+    var li = document.createElement("li");
+    var a = document.createElement("a");
+    a.setAttribute("target", "_blank");
+    a.setAttribute("href", href);
+    a.innerHTML = label;
+    li.appendChild(a);
+    return li;
   }
 
   data.connect("endUpdate", this, this.onUpdate);

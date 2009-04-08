@@ -1,0 +1,20 @@
+
+.links {
+  font-size: 10pt;
+}
+
+.links li{
+  padding-right: 40px;
+  margin-left: 0px;
+  list-style-type: disc;
+  
+}
+
+.links li a{
+  text-decoration: none;
+  color: #000;
+}
+
+.links li a:hover{
+  text-decoration: underline;
+}

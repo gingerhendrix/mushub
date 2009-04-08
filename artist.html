@@ -61,8 +61,8 @@
             var result = results[0];
             var artist_name = result.artist_name;
             var artist_mbid = result.artist_mbid;
-           // window.location.search = "?artist_name="+encodeURIComponent(artist_name)+"&artist_mbid="+artist_mbid;
-           showArtistUI(artist_name, artist_mbid);
+            window.location.search = "?artist_name="+encodeURIComponent(artist_name)+"&artist_mbid="+artist_mbid;
+           //showArtistUI(artist_name, artist_mbid);
           }
 //          alert("Results "  + results.toSource());
         });
