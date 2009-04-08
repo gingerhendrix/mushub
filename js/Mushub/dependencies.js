@@ -2,7 +2,7 @@
         var base = "js/Mushub/";
       
         if(isLocalhost()){
-
+          loadLibrary(".", ["application"]);
           loadLibrary("model", ["artist", "artist_query"]);
           loadLibrary("model/audioscrobbler", ["top_albums_datasource", "similar_artists_datasource"]);
           loadLibrary("model/musicbrainz", ["artist_members_datasource", "artist_urls_datasource", "artist_search_datasource"]);
