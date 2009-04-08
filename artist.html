@@ -11,7 +11,6 @@
   
     <script src="js/Mushub/dependencies.js"></script>
     
-    
     <script>
    
     //Stolen from jsUtils    
@@ -44,10 +43,10 @@
       $("#search_input").attr("disabled", false);  
       var artist = Artist.findByNameAndMBid(artist_name, artist_mbid);
       var ui = new ArtistUI($('#artist_ui'), artist);
-      ui.addContent("Biography", new BiographyPanel(artist), {});
-      ui.addContent("Top Albums", new LastfmTopAlbumsPanel(artist), {});
-      ui.addContent("Similar Artists", new LastfmSimilarArtistsPanel(artist), {});
-      ui.addContent("Links", new MusicbrainzLinksPanel(artist), {});
+      ui.addContent("Biography", new mushub.ui.panels.WikipediaBiographyPanel(artist), {});
+      ui.addContent("Top Albums", new mushub.ui.panels.LastfmTopAlbumsPanel(artist), {});
+      ui.addContent("Similar Artists", new mushub.ui.panels.LastfmSimilarArtistsPanel(artist), {});
+      ui.addContent("Links", new mushub.ui.panels.MusicbrainzLinksPanel(artist), {});
       ui.writeHTML();
     }
     
