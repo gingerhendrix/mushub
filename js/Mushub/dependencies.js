@@ -1,8 +1,8 @@
   (function(){
         var base = "js/Mushub/";
       
-        if(isLocalhost()){
-          loadLibrary(".", ["application"]);
+        function loadDependencies(){
+         loadLibrary(".", ["application"]);
           loadLibrary("model", ["artist", "artist_query"]);
           loadLibrary("model/audioscrobbler", ["top_albums_datasource", "similar_artists_datasource"]);
           loadLibrary("model/musicbrainz", ["artist_members_datasource", "artist_urls_datasource", "artist_search_datasource"]);
@@ -13,10 +13,15 @@
           loadLibrary("utils", ["databean", "datasource", "webservice"]);
           
           loadScript("js/config/config.development.js");
+        }
+      
+        if(isLocalhost()){
+          loadDependencies();
         }else{
+          loadDependencies();
 //          loadScript(base + "NowPlaying.js");   
-//          loadScript("js/config/config.production.js");
-//          loadScript("http://gandrew.com/mint/?js");       
+          loadScript("js/config/config.production.js");
+          loadScript("http://gandrew.com/mint/?js");       
         }        
         
         function isLocalhost(){

@@ -1,28 +1,57 @@
+
 <html>
   <head>
-  <!--
-    <link rel="stylesheet" href="css/nowplaying.css"/>
-    <link rel="stylesheet" href="css/ext-all.css"/>
-    
-    <script type='text/javascript' language='javascript' src='http://us.js2.yimg.com/us.js.yimg.com/lib/flash/swfobject/1.0/swfobject.js'></script>
 
-    <script src="js/MochiKit/MochiKit.js"></script>
-
-    <script src="js/Ext/ext-base.js"></script>
-    <script src="js/Ext/ext-all.js"></script>
-    <script src="js/Ext/tab-close-menu.js"></script>
-    
+    <link rel="stylesheet" href="css/artist.css"/>
     <script src="js/jsUtils.js"></script>
+    <script src="js/MochiKit/MochiKit.js"></script>
     <script src="js/sendJSONPRequest.js"></script>
-    
-    <script src="js/NowPlaying/dependencies.js"></script>
-
-    <script src="js/NowPlaying/startup.js"></script>    
--->  
-  </head>
-
-  <body>
-
-  </body>
   
+    <script src="js/jquery.js"></script>
+  
+    <script src="js/Mushub/dependencies.js"></script>
+    
+    <script>
+   
+    //Stolen from jsUtils    
+
+   function QueryString(qs){
+      this.parts = {};
+      var self = this;
+      
+      if(qs.indexOf("?")==0){
+        qs = qs.substring(1);
+      } 
+      
+      qs.split("&").forEach(function(pair){
+        var bits = pair.split("=");
+        self.parts[bits[0]] = decodeURIComponent(bits[1]);
+      });
+
+    }
+
+    QueryString.fromLocation = function(){
+      return new QueryString(window.location.search);
+    }   
+   
+   </script>
+    
+   <script>
+      mushub.Application.init();
+    </script>
+
+  </head>
+    <body class="search">
+
+    <div id="top_bar">
+      <a href="artist.html" class="logo"><img class="logo" src="images/logo.png" width="100" height="30" alt="mushub"/></a>
+      <form action="#" method="GET" onsubmit="return searchSubmit();">
+        <input type="text" name="query" class="search" id="search_input"></input>
+        <input type="submit" name="search" value="search" class="submit"></input>
+      </form>
+    </div>
+    
+    <div id="artist_ui"></div>
+  
+  </body>
 </html>
