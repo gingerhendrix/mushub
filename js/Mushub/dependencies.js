@@ -12,11 +12,12 @@
           loadLibrary("ui/panels", ["wikipedia_biography_panel", "lastfm_top_albums_panel", "lastfm_similar_artists_panel", "musicbrainz_links_panel"]);
           loadLibrary("utils", ["databean", "datasource", "webservice"]);
           
-          loadScript("js/config/config.development.js");
         }
       
         if(isLocalhost()){
           loadDependencies();
+          loadScript("js/config/config.development.js");
+
         }else{
           loadDependencies();
 //          loadScript(base + "NowPlaying.js");   
