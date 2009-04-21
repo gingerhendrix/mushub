@@ -18,16 +18,24 @@ Utils.namespace("mushub.client.utils", {
     this.isLoaded = false;
     this.isError = false;
 
-    function makeParams(self, params){
-      var paramObj = {}
-      params.forEach(function(param){
+    function makeParams(self, ps){
+      var params = [];
+      ps.forEach(function(param){
+        var paramObj = {}
         if(typeof param == "string"){
-          paramObj[param] = self[param];
+          paramObj.name = param;
+          paramObj.value = self[param];
         }else{
-          paramObj[param.name] = self[param.prop];
+          paramObj.name = param.name;
+          if(param.prop){
+            paramObj.value = self[param.prop];
+          }else{
+            paramObj.value = param.value;
+          }
         }
+        params.push(paramObj)
       });
-      return paramObj;
+      return params;
     }
 
     this.update = function(){
@@ -37,9 +45,9 @@ Utils.namespace("mushub.client.utils", {
       }
       Utils.signals.signal(this, "beginUpdate");
       this.isLoading = true;
-//    var params = makeParams(this, config.params);
-
-      var url = mushub.Webservice.url(config.service, config.params);
+      var params = makeParams(this, config.params);
+      console.log("Params : %o => %o ", config.params, params);
+      var url = mushub.Webservice.url(config.service, params);
       var self = this;
       var callback = function(response){
           console.log("Datasource[anonymous callback] : %o : %o", self, response);
@@ -79,7 +87,9 @@ Utils.namespace("mushub" , {
     SERVER : "http://api.mushub.com",
     url : function(service, options){
       console.log("url: %o, options: %o", service, options);
-      var queryString = options.map(function(o){ return o.name + "=" + o.value }).join('&'); //MochiKit.Base.queryString(options);
+      var queryString = options.map(function(o){
+        return o.name + "=" + o.value;
+       }).join('&'); //MochiKit.Base.queryString(options);
       return this.SERVER + "/" + service + ".js?" + queryString;
     }
   }
@@ -92,7 +102,7 @@ Utils.namespace("mushub.model.audioscrobbler", {
     this.artist = artist.name;
     Utils.extend(this, new mushub.client.utils.Datasource(
                                        { service : "audioscrobbler/similar_artists",
-                                         params : [{name: "artist", value : artist.name}]
+                                         params : ["artist"]
                                        }));
 
     this.makeProp("similar_artists");

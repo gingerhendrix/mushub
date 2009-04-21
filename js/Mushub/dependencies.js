@@ -2,7 +2,8 @@
         var base = "js/Mushub/";
       
         function loadDependencies(){
-
+          loadLibrary("..", ["jsUtils", "jquery", "mushub_client"]);
+   
           loadLibrary(".", ["application"]);
           loadLibrary("model", ["artist", "artist_query"]);
           loadLibrary("ui", [ "content_panel", "artist_ui"]);
@@ -21,11 +22,11 @@
 
           loadScript(base + "Mushub.js");   
           loadScript("js/config/config.production.js");
-          loadScript("http://gandrew.com/mint/?js");       
+          loadScriptDeferred("http://gandrew.com/mint/?js");       
         }        
         
         function isLocalhost(){
-          return window.location.host.indexOf(".") == -1
+          return (window.location.host.indexOf(".") == -1) && (window.location.search.indexOf('production') == -1)
         }
         
         function loadLibrary(name, libs){
@@ -41,6 +42,14 @@
           
         function loadScript(url){
           document.write("<script src='"+url+"'><"+"/script>");
+        }
+        
+        function loadScriptDeferred(url){
+          window.setTimeout(function(){
+            var script = document.createElement("script");
+            script.src = url;
+            document.getElementsByTagName("head")[0].appendChild(script);
+          }, 1000);
         }
     
       })();

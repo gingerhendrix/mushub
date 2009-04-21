@@ -1,3 +1,8 @@
+
+<%= include "../jquery.js" %>
+<%= include "../jsUtils.js" %>
+<%= include "../mushub_client.js" %>
+
 <% Dir.glob("**/*.js") do |file| %>
   <%= include file unless (file == "Mushub.js" || file == "dependencies.js") %>
 <% end %>

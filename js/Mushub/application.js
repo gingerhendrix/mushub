@@ -41,7 +41,7 @@ Utils.namespace("mushub.Application",  (function(){
         $("#search_input").attr("value", query);
         $("#search_input").attr("disabled", true);        
         var search = new ArtistQuery(query);
-        search.musicbrainz_search.connect("endUpdate", this, function(){
+        search.musicbrainz_search.connect("endUpdate", function(){
           var results = search.musicbrainz_search.search_results();
           if(results.length >0){
             var result = results[0];

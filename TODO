@@ -1,9 +1,7 @@
 @milestone 0.3.0
-  Remove old stuff
-  Fix new page logic
-    Search inline then reload
+  Remove old stuff +done
   Create optimised build 
-    Merge js file
+    Merge js file (add jquery, jsutils and client)
     Merge css file
   
     

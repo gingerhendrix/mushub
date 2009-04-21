@@ -27,6 +27,7 @@ APP_SERVER = "linode.gandrew.com"
 role :app_server, APP_SERVER
 
 JS_SRC_DIR = File.dirname(__FILE__) + "/js/Mushub"
+CSS_SRC_DIR = File.dirname(__FILE__) + "/css"
 
 Dir['tasks/**/*.rake'].each { |rake| load rake }
 
