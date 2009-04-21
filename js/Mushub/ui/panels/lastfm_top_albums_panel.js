@@ -8,7 +8,7 @@ Utils.namespace("mushub.ui.panels", {
       var albumList = document.createElement("ol");
       albumList.setAttribute("class", "top_albums");
       $(this.contentEl).append(albumList);
-     
+      
       var top_albums = this.data.top_albums();
       var max_reach = top_albums[0] ? top_albums[0].reach : 0;
      

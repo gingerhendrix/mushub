@@ -1,2 +1,2 @@
 
-Webservice.SERVER = "http://localhost:4567"
+mushub.Webservice.SERVER = "http://localhost:4567"

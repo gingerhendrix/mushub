@@ -5,6 +5,7 @@ Utils.namespace("mushub.ui", {
     this.containerEl;
      
     this.onUpdate = function(){
+      console.log("%o onUpdate", this);
       this.writeContent();
     }
     
@@ -21,13 +22,14 @@ Utils.namespace("mushub.ui", {
       }else if(this.data.isLoaded){
         this.writeData();
       }else{
-        $(this.contentEl).text("");
+        $(this.contentEl).text("Waa!");
       }
       $(this.containerEl).append(this.contentEl);
     }
     
     this.init = function(){
-      this.data.connect("endUpdate", this, this.onUpdate);
+      var self = this;
+      this.data.connect("endUpdate", function(){ self.onUpdate() });
       this.data.update();
     }
 

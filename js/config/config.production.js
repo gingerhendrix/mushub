@@ -1,2 +1,2 @@
 
-Webservice.SERVER  = "http://api.mushub.com"
+mushub.Webservice.SERVER  = "http://api.mushub.com"
