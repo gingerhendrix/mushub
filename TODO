@@ -1,0 +1,9 @@
+@milestone 0.3.0
+  Remove old stuff
+  Fix new page logic
+    Search inline then reload
+  Create optimised build 
+    Merge js file
+    Merge css file
+  
+    

@@ -26,7 +26,7 @@ ON_DEPLOY_RESTART = []
 APP_SERVER = "linode.gandrew.com"
 role :app_server, APP_SERVER
 
-JS_SRC_DIR = File.dirname(__FILE__) + "/js/NowPlaying"
+JS_SRC_DIR = File.dirname(__FILE__) + "/js/Mushub"
 
 Dir['tasks/**/*.rake'].each { |rake| load rake }
 

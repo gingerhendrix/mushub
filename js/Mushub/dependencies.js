@@ -4,10 +4,6 @@
         function loadDependencies(){
          loadLibrary(".", ["application"]);
           loadLibrary("model", ["artist", "artist_query"]);
-          loadLibrary("../../../mushub_services_clients/js/services/audioscrobbler", ["top_albums_datasource", "similar_artists_datasource"]);
-          loadLibrary("../../../mushub_services_clients/js/services/musicbrainz", ["artist_members_datasource", "artist_urls_datasource", "artist_search_datasource"]);
-          loadLibrary("../../../mushub_services_clients/js/services/wikipedia", ["wikipedia_datasource"]);
-
           loadLibrary("ui", [ "content_panel", "artist_ui"]);
           loadLibrary("ui/panels", ["wikipedia_biography_panel", "lastfm_top_albums_panel", "lastfm_similar_artists_panel", "musicbrainz_links_panel"]);
           loadLibrary("utils", ["databean", "datasource", "webservice"]);
@@ -19,8 +15,7 @@
           loadScript("js/config/config.development.js");
 
         }else{
-          loadDependencies();
-//          loadScript(base + "NowPlaying.js");   
+          loadScript(base + "Mushub.js");   
           loadScript("js/config/config.production.js");
           loadScript("http://gandrew.com/mint/?js");       
         }        
